@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MintLynk | Confirm Your Registration</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 30px;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .logo img {
+      max-height: 90px;
+    }
+    .tagline {
+      text-align: center;
+      font-size: 14px;
+      color: #337B7F;
+      margin-bottom: 30px;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #00BA83;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .fallback-url {
+      word-break: break-all;
+      font-size: 13px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      margin-top: 15px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: #888;
+    }
+    .footer a {
+      color: #337B7F;
+      text-decoration: none;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      margin: 0 6px;
+      display: inline-block;
+    }
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="logo">
+      <img src="assets/logo.jpg" alt="[YourAppName] Logo" />
+    </div>
+    <div class="tagline">
+      Smart links for smarter sharing
+    </div>
+
+    <h2 style="color: #333;">Welcome, #username# 👋</h2>
+    <p style="color: #555;">Thanks for signing up for <strong>MintLynk</strong>! You're almost there — we just need to confirm your email address.</p>
+    <p style="color: #555;">Please click the button below to activate your account:</p>
+
+    <p style="text-align: center; margin: 30px 0;">
+      <a href="#confirmationlink#" class="button">Confirm My Email</a>
+    </p>
+
+    <p style="color: #555;">If the button doesn’t work, just copy and paste this link into your browser:</p>
+    <div class="fallback-url">#confirmationlink#</div>
+
+    <p style="color: #555;">Need help or have questions? We’re here for you.</p>
+    <p style="color: #555;">Welcome aboard!<br><strong>The MintLynk Team</strong></p>
+
+    <div class="footer">
+      <p>Need help? <a href="mailto:support@mintlynk.com">Contact Support</a> | <a href="https://mintlynk.com">Visit our website</a></p>
+      <div class="social-icons">
+        <a href="https://facebook.com/mintlynk"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+        <a href="https://twitter.com/mintlynk"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+        <a href="https://linkedin.com/company/mintlynk"><img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn"></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

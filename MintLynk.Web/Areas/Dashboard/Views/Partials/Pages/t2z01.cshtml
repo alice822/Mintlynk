@@ -1,0 +1,438 @@
+﻿@using MintLynk.Application.Dtos
+@model MintLynk.Web.Areas.Dashboard.Controllers.PagesController.ProfessionalProfileServiceViewModel
+
+<div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+    <div>
+        <div class="flex flex-col justify-between overflow-hidden mx-auto w-3/5" style="width:60%;">
+            <div class="flex flex-col w-full mb-3">
+                <h6 class="font-semibold mb-0 dark:text-white">Give your link a new identity</h6>
+                <p class="text-gray-600 text-sm">
+                    You’ll receive a QR code along with your short link — no extra steps needed.
+                </p>
+            </div>
+        </div>
+        <div class="card border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 rounded-lg shadow p-6 flex flex-col justify-between overflow-hidden mx-auto w-3/5 mb-5" style="width:60%;">
+            <div class="flex w-full">
+                <div class="w-full grid grid-cols-1 sm:grid-cols-12 gap-4">
+                    <div class="col-span-12">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <h6 class="mb-1.5 text-xl">Order By Following Step</h6>
+                                <p class="text-neutral-400">Fill up your details and proceed next steps.</p>
+                                <div class="form-wizard">
+                                    <div class="form-wizard-header overflow-x-auto scroll-sm pb-2 mt-8 mb-8">
+                                        <ul class="list-unstyled form-wizard-list style-two">
+                                            <li class="form-wizard-list__item active">
+                                                <div class="form-wizard-list__line">
+                                                    <span class="count">1</span>
+                                                </div>
+                                                <span class="text text-xs font-semibold">Personal Details </span>
+                                            </li>
+                                            <li class="form-wizard-list__item">
+                                                <div class="form-wizard-list__line">
+                                                    <span class="count">2</span>
+                                                </div>
+                                                <span class="text text-xs font-semibold">Contact Details</span>
+                                            </li>
+                                            <li class="form-wizard-list__item">
+                                                <div class="form-wizard-list__line">
+                                                    <span class="count">3</span>
+                                                </div>
+                                                <span class="text text-xs font-semibold">Professional Summary</span>
+                                            </li>
+                                            <li class="form-wizard-list__item">
+                                                <div class="form-wizard-list__line">
+                                                    <span class="count">4</span>
+                                                </div>
+                                                <span class="text text-xs font-semibold">Media</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <fieldset class="wizard-fieldset show">
+                                        <h6 class="text-base text-neutral-400 mb-3">Personal Information</h6>
+                                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">                                           
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.Alias" class="block font-medium">Unique Name*</label>
+                                                <div class="relative">
+                                                    @if (!string.IsNullOrEmpty(Model.ProfessionalProfile?.Alias))
+                                                    {
+                                                        <input value="@Model.ProfessionalProfile.Alias" readonly class="form-control" placeholder="" />
+                                                        <input type="hidden" asp-for="ProfessionalProfile.Alias" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input asp-for="ProfessionalProfile.Alias" class="form-control wizard-required" placeholder="Alias" required="" />
+                                                        <span asp-validation-for="ProfessionalProfile.Alias" class="wizard-form-error text-danger"></span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.Title" class="block font-medium">Full name*</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.Title" class="form-control wizard-required" placeholder="Enter First Name" required="" />
+                                                    <span asp-validation-for="ProfessionalProfile.Title" class="wizard-form-error text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.Profession" class="inline-block mb-2">Profession*</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.Profession" class="form-control wizard-required" placeholder="Your profession" required="">
+                                                    <span asp-validation-for="ProfessionalProfile.Profession" class="wizard-form-error text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.Intro" class="inline-block mb-2">Intro</label>
+                                                <div class="relative">
+                                                    <textarea asp-for="ProfessionalProfile.Intro" rows="3" class="form-control" id="Intro" placeholder="Your intro"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.Bio" class="inline-block mb-2">Biography</label>
+                                                <div class="relative">
+                                                    <textarea asp-for="ProfessionalProfile.Bio" class="form-control" id="Bio"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <div class="form-group text-end">
+                                                    <button type="button" class="form-wizard-next-btn btn btn-primary-600 px-8">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="wizard-fieldset">
+                                        <h6 class="text-base text-neutral-400 mb-3">Contact Information</h6>
+                                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label asp-for="ProfessionalProfile.Address" class="inline-block mb-2">Address*</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.Address" class="form-control" placeholder="Your address">
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label asp-for="ProfessionalProfile.ContactNumber" class="inline-block mb-2">Contact Number</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.ContactNumber" class="form-control" placeholder="Your contact number">
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label asp-for="ProfessionalProfile.Email" class="inline-block mb-2">Email</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.Email" class="form-control" placeholder="Your email address">
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label asp-for="ProfessionalProfile.Website" class="inline-block mb-2">Website</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.Website" class="form-control" placeholder="Your website">
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <label class="inline-block mb-2 font-medium">Social Media</label>
+                                                <div id="socialLinksContainer">
+                                                    @if (Model.ProfessionalProfile?.SocialLinks != null && Model.ProfessionalProfile.SocialLinks.Any())
+                                                    {
+                                                        <div class="mb-2">
+                                                            @foreach (var link in Model.ProfessionalProfile.SocialLinks.OrderBy(l => l.SortOrder))
+                                                            {
+                                                                <div class="flex gap-2 items-center mb-1 social-link-row">
+                                                                    <input type="hidden" name="ProfessionalProfile.SocialLinks[@link.SortOrder].SortOrder" value="@link.SortOrder" class="social-sort-order" />
+                                                                    <input name="ProfessionalProfile.SocialLinks[@link.SortOrder].Platform" class="form-control" placeholder="Platform (e.g. Facebook)" value="@link.Platform" />
+                                                                    <input name="ProfessionalProfile.SocialLinks[@link.SortOrder].Url" class="form-control" placeholder="Profile URL" value="@link.Url" />
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-social-link flex items-center justify-center" tabindex="-1" title="Remove">
+                                                                        <i class="ri-delete-bin-6-line text-lg"></i>
+                                                                    </button>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm mt-2 flex items-center justify-center" id="addSocialLinkBtn" title="Add Social Link">
+                                                    <i class="ri-add-line text-lg"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <div class="form-group flex items-center justify-end gap-2">
+                                                    <button type="button" class="form-wizard-previous-btn btn bg-neutral-400 border-neutral-400 hover:bg-neutral-500 hover:border-neutral-500 text-white px-8">Back</button>
+                                                    <button type="button" class="form-wizard-next-btn btn btn-primary-600 px-8">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="wizard-fieldset">
+                                        <h6 class="text-base text-neutral-400 mb-3">Professional Summary</h6>
+                                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                                            <!-- Qualifications -->
+                                            <div class="col-span-12">
+                                                <label class="inline-block mb-2 font-medium">Qualifications</label>
+                                                <div id="qualificationsContainer">
+                                                    @if (Model.ProfessionalProfile?.Qualification != null && Model.ProfessionalProfile.Qualification.Any())
+                                                    {
+                                                        foreach (var item in Model.ProfessionalProfile.Qualification.OrderBy(q => q.SortOrder))
+                                                        {
+                                                            <div class="flex gap-2 items-center mb-2 profile-support-row">
+                                                                <input type="hidden" name="ProfessionalProfile.Qualification[@item.SortOrder].SortOrder" value="@item.SortOrder" class="profile-support-sort-order" />
+                                                                <input type="text" class="form-control profile-support-year" placeholder="Year" style="width:140px;" value="@item.Year" />
+                                                                <input type="text" class="form-control profile-support-title" placeholder="Title" style="width:200px;" value="@item.Title" />
+                                                                <input type="text" class="form-control profile-support-description" placeholder="Description" style="width:380px;" value="@item.Description" />
+                                                                <button type="button" class="btn btn-danger btn-sm remove-profile-support flex items-center justify-center" tabindex="-1" title="Remove">
+                                                                    <i class="ri-delete-bin-6-line text-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm mt-2 flex items-center justify-center" id="addQualificationBtn" title="Add Qualification">
+                                                    <i class="ri-add-line text-lg"></i>
+                                                </button>
+                                            </div>
+                                            <!-- Experience -->
+                                            <div class="col-span-12">
+                                                <label class="inline-block mb-2 font-medium">Experience</label>
+                                                <div id="experienceContainer">
+                                                    @if (Model.ProfessionalProfile?.Experience != null && Model.ProfessionalProfile.Experience.Any())
+                                                    {
+                                                        foreach (var item in Model.ProfessionalProfile.Experience.OrderBy(e => e.SortOrder))
+                                                        {
+                                                            <div class="flex gap-2 items-center mb-2 profile-support-row">
+                                                                <input type="hidden" name="ProfessionalProfile.Experience[@item.SortOrder].SortOrder" value="@item.SortOrder" class="profile-support-sort-order" />
+                                                                <input type="text" class="form-control profile-support-year" placeholder="Year" style="width:140px;" value="@item.Year" />
+                                                                <input type="text" class="form-control profile-support-title" placeholder="Title" style="width:200px;" value="@item.Title" />
+                                                                <input type="text" class="form-control profile-support-description" placeholder="Description" style="width:380px;" value="@item.Description" />
+                                                                <button type="button" class="btn btn-danger btn-sm remove-profile-support flex items-center justify-center" tabindex="-1" title="Remove">
+                                                                    <i class="ri-delete-bin-6-line text-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm mt-2 flex items-center justify-center" id="addExperienceBtn" title="Add Experience">
+                                                    <i class="ri-add-line text-lg"></i>
+                                                </button>
+                                            </div>
+                                            <!-- Achievements -->
+                                            <div class="col-span-12">
+                                                <label class="inline-block mb-2 font-medium">Achievements</label>
+                                                <div id="achievementsContainer">
+                                                    @if (Model.ProfessionalProfile?.Achievements != null && Model.ProfessionalProfile.Achievements.Any())
+                                                    {
+                                                        foreach (var item in Model.ProfessionalProfile.Achievements.OrderBy(a => a.SortOrder))
+                                                        {
+                                                            <div class="flex gap-2 items-center mb-2 profile-support-row">
+                                                                <input type="hidden" name="ProfessionalProfile.Achievements[@item.SortOrder].SortOrder" value="@item.SortOrder" class="profile-support-sort-order" />
+                                                                <input type="text" class="form-control profile-support-year" placeholder="Year" style="width:140px;" value="@item.Year" />
+                                                                <input type="text" class="form-control profile-support-title" placeholder="Title" style="width:200px;" value="@item.Title" />
+                                                                <input type="text" class="form-control profile-support-description" placeholder="Description" style="width:380px;" value="@item.Description" />
+                                                                <button type="button" class="btn btn-danger btn-sm remove-profile-support flex items-center justify-center" tabindex="-1" title="Remove">
+                                                                    <i class="ri-delete-bin-6-line text-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-sm mt-2 flex items-center justify-center" id="addAchievementBtn" title="Add Achievement">
+                                                    <i class="ri-add-line text-lg"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <div class="form-group flex items-center justify-end gap-2">
+                                                    <button type="button" class="form-wizard-previous-btn btn bg-neutral-400 border-neutral-400 hover:bg-neutral-500 hover:border-neutral-500 text-white px-8">Back</button>
+                                                    <button type="button" class="form-wizard-next-btn btn btn-primary-600 px-8">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="wizard-fieldset">
+                                        <h6 class="text-base text-neutral-400 mb-3">Media</h6>
+                                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.BannerImage" class="inline-block mb-2">Banner Image</label>
+                                                <div class="relative flex flex-col gap-2">
+                                                    <img src="@(string.IsNullOrEmpty(Model.ProfessionalProfile.BannerImage) ? "" : Model.ProfessionalProfile.BannerImage)" 
+                                                         alt="Banner Preview" class="h-24 object-cover rounded" style="width:150px;display:@(string.IsNullOrEmpty(Model.ProfessionalProfile.BannerImage) ? "none" : "block");" />
+                                                    <input type="file" name="BannerImageFile" accept="image/*" class="border border-neutral-200 dark:border-neutral-600 w-full rounded-lg text-lg" />
+                                                    <input type="hidden" asp-for="ProfessionalProfile.BannerImage" />
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.ImageUrl" class="inline-block mb-2">Profile Image</label>
+                                                <div class="relative flex flex-col gap-2">
+                                                    <img stysrc="@(string.IsNullOrEmpty(Model.ProfessionalProfile.ImageUrl) ? "" : Model.ProfessionalProfile.ImageUrl)" 
+                                                         alt="Profile Preview" class="h-24 object-cover rounded" style="width:150px;display:@(string.IsNullOrEmpty(Model.ProfessionalProfile.ImageUrl) ? "none" : "block");" />
+                                                    <input type="file" name="ImageUrlFile" accept="image/*" class="border border-neutral-200 dark:border-neutral-600 w-full rounded-lg text-lg" />
+                                                    <input type="hidden" asp-for="ProfessionalProfile.ImageUrl" />
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-12">
+                                                <label asp-for="ProfessionalProfile.ImageAlt" class="inline-block mb-2">Profile Image Alt Text</label>
+                                                <div class="relative">
+                                                    <input asp-for="ProfessionalProfile.ImageAlt" class="form-control" placeholder="Your email address">
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <div class="form-group flex items-center justify-end gap-2">
+                                                    <button type="button" class="form-wizard-previous-btn btn bg-neutral-400 border-neutral-400 hover:bg-neutral-500 hover:border-neutral-500 text-white px-8">Back</button>
+                                                    <button type="submit" class="form-wizard-submit btn btn-primary-600 px-8">Save</button>
+                                                    <button type="button" class="form-wizard-submit btn btn-primary-600 px-8">Publish</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="/ckeditor5/ckeditor.js"></script>
+<script>
+    ClassicEditor.create(document.querySelector('#Bio'))
+        .then(editor => {
+            editor.ui.view.editable.element.style.height = '300px'; // Set your desired height
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let socialLinksContainer = document.getElementById('socialLinksContainer');
+        let addBtn = document.getElementById('addSocialLinkBtn');
+
+        function getNextIndex() {
+            let rows = socialLinksContainer.querySelectorAll('.social-link-row');
+            return rows.length;
+        }
+
+        function updateSocialLinksIndices() {
+            const rows = socialLinksContainer.querySelectorAll('.social-link-row');
+            rows.forEach((row, i) => {
+                // Update hidden sort order
+                const sortInput = row.querySelector('.social-sort-order');
+                if (sortInput) {
+                    sortInput.value = i;
+                    sortInput.name = `ProfessionalProfile.SocialLinks[${i}].SortOrder`;
+                }
+                // Update platform and url input names
+                const platformInput = row.querySelector('input[placeholder^="Platform"]');
+                if (platformInput) platformInput.name = `ProfessionalProfile.SocialLinks[${i}].Platform`;
+                const urlInput = row.querySelector('input[placeholder^="Profile URL"]');
+                if (urlInput) urlInput.name = `ProfessionalProfile.SocialLinks[${i}].Url`;
+            });
+        }
+
+        addBtn.addEventListener('click', function () {
+            let idx = getNextIndex();
+            let row = document.createElement('div');
+            row.className = 'flex gap-2 items-center mb-2 social-link-row';
+            row.innerHTML = `
+                <input type="hidden" name="ProfessionalProfile.SocialLinks[${idx}].SortOrder" value="${idx}" class="social-sort-order" />
+                <input name="ProfessionalProfile.SocialLinks[${idx}].Platform" class="form-control" placeholder="Platform (e.g. Facebook)" />
+                <input name="ProfessionalProfile.SocialLinks[${idx}].Url" class="form-control" placeholder="Profile URL" />
+                <button type="button" class="btn btn-danger btn-sm remove-social-link flex items-center justify-center" tabindex="-1" title="Remove">
+                    <i class="ri-delete-bin-6-line text-lg"></i>
+                </button>
+            `;
+            socialLinksContainer.appendChild(row);
+            updateSocialLinksIndices();
+        });
+
+        socialLinksContainer.addEventListener('click', function (e) {
+            let btn = e.target.closest('.remove-social-link');
+            if (btn) {
+                btn.closest('.social-link-row').remove();
+                updateSocialLinksIndices();
+            }
+        });
+    });
+
+    function setupProfileSupportList(containerId, addBtnId, fieldName) {
+        const container = document.getElementById(containerId);
+        const addBtn = document.getElementById(addBtnId);
+
+        function getNextIndex() {
+            return container.querySelectorAll('.profile-support-row').length;
+        }
+
+        function updateIndices() {
+            const rows = container.querySelectorAll('.profile-support-row');
+            rows.forEach((row, i) => {
+                // Update hidden sort order
+                const sortInput = row.querySelector('.profile-support-sort-order');
+                if (sortInput) {
+                    sortInput.value = i;
+                    sortInput.name = `ProfessionalProfile.${fieldName}[${i}].SortOrder`;
+                }
+                // Update other input names
+                const yearInput = row.querySelector('.profile-support-year');
+                if (yearInput) yearInput.name = `ProfessionalProfile.${fieldName}[${i}].Year`;
+                const titleInput = row.querySelector('.profile-support-title');
+                if (titleInput) titleInput.name = `ProfessionalProfile.${fieldName}[${i}].Title`;
+                const descInput = row.querySelector('.profile-support-description');
+                if (descInput) descInput.name = `ProfessionalProfile.${fieldName}[${i}].Description`;
+            });
+        }
+
+        addBtn.addEventListener('click', function () {
+            let idx = getNextIndex();
+            let row = document.createElement('div');
+            row.className = 'flex gap-2 items-center mb-2 profile-support-row';
+            row.innerHTML = `
+                <input type="hidden" name="ProfessionalProfile.${fieldName}[${idx}].SortOrder" value="${idx}" class="profile-support-sort-order" />
+                <input type="text" class="form-control profile-support-year" placeholder="Year" style="width:140px;" />
+                <input type="text" class="form-control profile-support-title" placeholder="Title" style="width:200px;" />
+                <input type="text" class="form-control profile-support-description" placeholder="Description" style="width:380px;" />
+                <button type="button" class="btn btn-danger btn-sm remove-profile-support flex items-center justify-center" tabindex="-1" title="Remove">
+                    <i class="ri-delete-bin-6-line text-lg"></i>
+                </button>
+            `;
+            container.appendChild(row);
+            updateIndices();
+        });
+
+        container.addEventListener('click', function (e) {
+            let btn = e.target.closest('.remove-profile-support');
+            if (btn) {
+                btn.closest('.profile-support-row').remove();
+                updateIndices();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setupProfileSupportList('qualificationsContainer', 'addQualificationBtn', 'Qualification');
+        setupProfileSupportList('experienceContainer', 'addExperienceBtn', 'Experience');
+        setupProfileSupportList('achievementsContainer', 'addAchievementBtn', 'Achievements');
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        const img = input.parentElement.querySelector('img');
+                        if (img) {
+                            img.src = ev.target.result;
+                            img.style.display = "block";
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    });
+</script>

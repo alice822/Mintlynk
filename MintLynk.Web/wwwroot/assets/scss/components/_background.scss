@@ -1,0 +1,29 @@
+@use "../utils" as *;
+
+/*=============================
+    - Background color
+===============================*/
+.grey-bg {
+    background: var(--tg-color-gray-1);
+}
+.white-bg {
+    background: var(--tg-color-white-default);
+}
+.black-bg {
+    background: var(--tg-color-black-1);
+}
+.bg-white {
+    background: var(--tg-color-white-default) !important;
+}
+.bg-img {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+.bg-img-2 {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}

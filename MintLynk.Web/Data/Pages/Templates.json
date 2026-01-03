@@ -1,0 +1,24 @@
+[
+  {
+    "Alias": "professional-profile",
+    "Name": "Professional Profile",
+    "PageTemplates": [
+      {
+        "Alias": "t2z01",
+        "Name": "Default",
+        "Intro": "A simple professional profile template."
+      }
+    ]
+  },
+  {
+    "Alias": "professional-service",
+    "Name": "Professional Service",
+    "PageTemplates": [
+      {
+        "Alias": "t2v01",
+        "Name": "Default",
+        "Intro": "A simple professional service template."
+      }
+    ]
+  }
+]

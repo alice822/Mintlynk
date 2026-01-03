@@ -1,0 +1,216 @@
+﻿@using MintLynk.Application.Dtos
+@model MintLynk.Web.Areas.Dashboard.Controllers.PagesController.ProfessionalProfileServiceViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
+
+}
+@if (Model.IsTemplateSelected == false)
+{
+    var allTemplates = Model.Templates
+    .SelectMany(t => t.PageTemplates.Select(pt => new
+    {
+        Type = t.Name,
+        TypeAlias = t.Alias,
+        Alias = pt.Alias,
+        Name = pt.Name,
+        Intro = pt.Intro
+    }))
+    .ToList();
+    var types = Model.Templates.Select(t => new { t.Name, t.Alias }).Distinct().ToList();
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div>
+            <div class="flex flex-col justify-between overflow-hidden mx-auto w-3/5" style="width:60%;">
+                <div class="flex flex-col w-full mb-3">
+                    <h6 class="font-semibold mb-0 dark:text-white">Give your link a new identity</h6>
+                    <p class="text-gray-600 text-sm">
+                        You’ll receive a QR code along with your short link — no extra steps needed.
+                    </p>
+                </div>
+            </div>
+            <div class="card border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 rounded-lg shadow p-6 flex flex-col justify-between overflow-hidden mx-auto w-3/5 mb-5" style="width:60%;">
+                <div class="flex w-full">
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-12 gap-4">
+                        <div class="col-span-12">
+                            @if (allTemplates.Any())
+                            {
+                                <div class="mb-4">
+                                    <label for="templateTypeFilter" class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Filter by Type</label>
+                                    <select id="templateTypeFilter" class="w-auto border border-gray-300 rounded px-3 py-2 dark:bg-neutral-700 dark:text-white" onchange="filterTemplates()">
+                                        <option value="">All</option>
+                                        @foreach (var type in types)
+                                        {
+                                            <option value="@type.Name">@type.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div id="templatesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    @foreach (var template in allTemplates)
+                                    {
+                                        var previewPath = $"/dashboard/images/templates/{template.Alias}.jpg";
+                                        <div class="template-card border border-neutral-200 dark:border-neutral-700 rounded p-4 flex flex-col"
+                                             data-type="@template.Type">
+                                            <img src="@previewPath" alt="@template.Name preview"
+                                                 class="w-full h-32 object-cover rounded mb-3 border border-gray-200 dark:border-neutral-700" />
+                                            <strong class="text-base">@template.Name</strong>
+                                            <div class="text-sm text-neutral-600 dark:text-neutral-300">@template.Intro</div>
+                                            <div class="text-xs text-neutral-400 dark:text-neutral-400 mt-1">Type: @template.Type</div>
+                                            <button type="button" class="mt-3 self-end px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                                                    onclick="selectTemplate('@template.Alias')">
+                                                Select
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div>No templates available.</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+else
+{
+    var partialViewPath = $"~/Areas/Dashboard/Views/Partials/Pages/{Model.SelectedTemplateAlias}.cshtml";
+    <form asp-action="Create" asp-controller="Pages" asp-area="Dashboard" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="SelectedTemplateAlias" />
+        <input type="hidden" asp-for="IsTemplateSelected" />
+        <partial name="@partialViewPath" model="Model" />
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var isTemplateSelected = @Model.IsTemplateSelected?.ToString().ToLower();
+            if (!isTemplateSelected) {
+                document.getElementById('templateModal').classList.remove('hidden');
+            }
+        });
+
+        function selectTemplate(templateId) {
+           window.location.href = `/app/dashboard/landing-pages/create/${templateId}`;
+        }
+
+        function filterTemplates() {
+            var filter = document.getElementById('templateTypeFilter').value;
+            var cards = document.querySelectorAll('#templatesGrid .template-card');
+            cards.forEach(function(card) {
+                if (!filter || card.getAttribute('data-type') === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+         // =============================== Wizard Step Js Start ================================
+        $(document).ready(function() {
+            // click on next button
+            $('.form-wizard-next-btn').on("click", function() {
+                var parentFieldset = $(this).parents('.wizard-fieldset');
+                var currentActiveStep = $(this).parents('.form-wizard').find('.form-wizard-list .active');
+                var next = $(this);
+                var nextWizardStep = true;
+                parentFieldset.find('.wizard-required').each(function(){
+                    var thisValue = $(this).val();
+
+                    if( thisValue == "") {
+                        $(this).siblings(".wizard-form-error").show();
+                        nextWizardStep = false;
+                    }
+                    else {
+                        $(this).siblings(".wizard-form-error").hide();
+                    }
+                });
+                if( nextWizardStep) {
+                    next.parents('.wizard-fieldset').removeClass("show","400");
+                    currentActiveStep.removeClass('active').addClass('activated').next().addClass('active',"400");
+                    next.parents('.wizard-fieldset').next('.wizard-fieldset').addClass("show","400");
+                    $(document).find('.wizard-fieldset').each(function(){
+                        if($(this).hasClass('show')){
+                            var formAtrr = $(this).attr('data-tab-content');
+                            $(document).find('.form-wizard-list .form-wizard-step-item').each(function(){
+                                if($(this).attr('data-attr') == formAtrr){
+                                    $(this).addClass('active');
+                                    var innerWidth = $(this).innerWidth();
+                                    var position = $(this).position();
+                                    $(document).find('.form-wizard-step-move').css({"left": position.left, "width": innerWidth});
+                                }else{
+                                    $(this).removeClass('active');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            //click on previous button
+            $('.form-wizard-previous-btn').on("click",function() {
+                var counter = parseInt($(".wizard-counter").text());;
+                var prev =$(this);
+                var currentActiveStep = $(this).parents('.form-wizard').find('.form-wizard-list .active');
+                prev.parents('.wizard-fieldset').removeClass("show","400");
+                prev.parents('.wizard-fieldset').prev('.wizard-fieldset').addClass("show","400");
+                currentActiveStep.removeClass('active').prev().removeClass('activated').addClass('active',"400");
+                $(document).find('.wizard-fieldset').each(function(){
+                    if($(this).hasClass('show')){
+                        var formAtrr = $(this).attr('data-tab-content');
+                        $(document).find('.form-wizard-list .form-wizard-step-item').each(function(){
+                            if($(this).attr('data-attr') == formAtrr){
+                                $(this).addClass('active');
+                                var innerWidth = $(this).innerWidth();
+                                var position = $(this).position();
+                                $(document).find('.form-wizard-step-move').css({"left": position.left, "width": innerWidth});
+                            }else{
+                                $(this).removeClass('active');
+                            }
+                        });
+                    }
+                });
+            });
+            //click on form submit button
+            $(document).on("click",".form-wizard .form-wizard-submit" , function(){
+                var parentFieldset = $(this).parents('.wizard-fieldset');
+                var currentActiveStep = $(this).parents('.form-wizard').find('.form-wizard-list .active');
+                parentFieldset.find('.wizard-required').each(function() {
+                    var thisValue = $(this).val();
+                    if( thisValue == "" ) {
+                        $(this).siblings(".wizard-form-error").show();
+                    }
+                    else {
+                        $(this).siblings(".wizard-form-error").hide();
+                    }
+                });
+            });
+            // focus on input field check empty or not
+            $(".form-control").on('focus', function(){
+                var tmpThis = $(this).val();
+                if(tmpThis == '' ) {
+                    $(this).parent().addClass("focus-input");
+                }
+                else if(tmpThis !='' ){
+                    $(this).parent().addClass("focus-input");
+                }
+            }).on('blur', function(){
+                var tmpThis = $(this).val();
+                if(tmpThis == '' ) {
+                    $(this).parent().removeClass("focus-input");
+                    $(this).siblings(".wizard-form-error").show();
+                }
+                else if(tmpThis !='' ){
+                    $(this).parent().addClass("focus-input");
+                    $(this).siblings(".wizard-form-error").hide();
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@using MintLynk.Application.Dtos
+@model MintLynk.Web.Areas.Dashboard.Controllers.PagesController.ProfessionalProfileServiceViewModel
+<!-- Add fields for Qualification, Experience, Achievements as needed -->
+<h3 class="text-lg font-semibold mb-2 mt-8">Professional Service</h3>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Title" class="block font-medium">Title</label>
+    <input asp-for="ProfessionalProfile.Title" class="form-control" />
+    <span asp-validation-for="ProfessionalProfile.Title" class="text-danger"></span>
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Intro" class="block font-medium">Intro</label>
+    <input asp-for="ProfessionalProfile.Intro" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.BannerImage" class="block font-medium">Banner Image</label>
+    <input asp-for="ProfessionalProfile.BannerImage" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.ImageUrl" class="block font-medium">Image URL</label>
+    <input asp-for="ProfessionalProfile.ImageUrl" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.ImageAlt" class="block font-medium">Image Alt</label>
+    <input asp-for="ProfessionalProfile.ImageAlt" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Address" class="block font-medium">Address</label>
+    <input asp-for="ProfessionalProfile.Address" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.ContactNumber" class="block font-medium">Contact Number</label>
+    <input asp-for="ProfessionalProfile.ContactNumber" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Email" class="block font-medium">Email</label>
+    <input asp-for="ProfessionalProfile.Email" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Website" class="block font-medium">Website</label>
+    <input asp-for="ProfessionalProfile.Website" class="form-control" />
+</div>
+<div class="mb-4">
+    <label asp-for="ProfessionalProfile.Profession" class="block font-medium">Profession</label>
+    <input asp-for="ProfessionalProfile.Profession" class="form-control" />
+</div>
+

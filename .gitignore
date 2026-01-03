@@ -1,0 +1,87 @@
+# Visual Studio
+.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build folders (all projects)
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Rider / Resharper
+.idea/
+*.DotSettings.user
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.cache
+*.DS_Store
+
+# Publish folders
+**/publish/
+
+# Other VS artifacts
+*.pdb
+*.dll
+*.exe
+/MintLynk.Web/obj/Debug/net9.0/ref/MintLynk.Web.dll
+/MintLynk.Web/obj/Debug/net9.0/refint/MintLynk.Web.dll
+/MintLynk.Web/obj/Debug/net9.0/apphost.exe
+/MintLynk.Web/obj/Debug/net9.0/MintLynk.Web.AssemblyInfo.cs
+/MintLynk.Web/obj/Debug/net9.0/MintLynk.Web.AssemblyInfoInputs.cache
+/MintLynk.Web/obj/Debug/net9.0/MintLynk.Web.csproj.AssemblyReference.cache
+/MintLynk.Web/obj/Debug/net9.0/MintLynk.Web.dll
+/MintLynk.Web/obj/Debug/net9.0/MintLynk.Web.pdb
+/MintLynk.Web/obj/Debug/net9.0/rjimswa.dswa.cache.json
+/MintLynk.Web/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
+/MintLynk.Web/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
+/MintLynk.Web/obj/Debug/net9.0/rpswa.dswa.cache.json
+/MintLynk.Web/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/MintLynk.Web/obj/Debug/net9.0/staticwebassets.build.json
+/MintLynk.Web/obj/Debug/net9.0/staticwebassets.build.json.cache
+/MintLynk.Web/obj/Debug/net9.0/staticwebassets.development.json
+/MintLynk.Web/obj/Debug/net9.0/staticwebassets.upToDateCheck.txt
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Application.dll
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Application.pdb
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Infrastructure.dll
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Infrastructure.pdb
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Web.dll
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Web.exe
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Web.pdb
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Web.staticwebassets.endpoints.json
+/MintLynk.Web/bin/Debug/net9.0/MintLynk.Web.staticwebassets.runtime.json
+/MintLynk.Infrastructure/obj/Debug/net9.0/MintLynk.Infrastructure.AssemblyInfo.cs
+/MintLynk.Infrastructure/obj/Debug/net9.0/MintLynk.Infrastructure.AssemblyInfoInputs.cache
+/MintLynk.Infrastructure/obj/Debug/net9.0/MintLynk.Infrastructure.csproj.AssemblyReference.cache
+/MintLynk.Infrastructure/obj/Debug/net9.0/MintLynk.Infrastructure.dll
+/MintLynk.Infrastructure/obj/Debug/net9.0/MintLynk.Infrastructure.pdb
+/MintLynk.Infrastructure/bin/Debug/net9.0/MintLynk.Application.dll
+/MintLynk.Infrastructure/bin/Debug/net9.0/MintLynk.Application.pdb
+/MintLynk.Infrastructure/bin/Debug/net9.0/MintLynk.Infrastructure.dll
+/MintLynk.Infrastructure/bin/Debug/net9.0/MintLynk.Infrastructure.pdb
+/MintLynk.Infrastructure/obj/Debug/net9.0/ref/MintLynk.Infrastructure.dll
+/MintLynk.Infrastructure/obj/Debug/net9.0/refint/MintLynk.Infrastructure.dll
+/MintLynk.Application/obj/Debug/net9.0/MintLynk.Application.AssemblyInfo.cs
+/MintLynk.Application/obj/Debug/net9.0/MintLynk.Application.AssemblyInfoInputs.cache
+/MintLynk.Application/obj/Debug/net9.0/MintLynk.Application.csproj.AssemblyReference.cache
+/MintLynk.Application/obj/Debug/net9.0/MintLynk.Application.dll
+/MintLynk.Application/obj/Debug/net9.0/MintLynk.Application.pdb
+/MintLynk.Domain/obj/Debug/net9.0/MintLynk.Domain.AssemblyInfo.cs
+/MintLynk.Domain/obj/Debug/net9.0/MintLynk.Domain.AssemblyInfoInputs.cache
+/MintLynk.Application/bin/Debug/net9.0/MintLynk.Application.dll
+/MintLynk.Application/bin/Debug/net9.0/MintLynk.Application.pdb
+/MintLynk.Application/obj/Debug/net9.0/ref/MintLynk.Application.dll
+/MintLynk.Application/obj/Debug/net9.0/refint/MintLynk.Application.dll

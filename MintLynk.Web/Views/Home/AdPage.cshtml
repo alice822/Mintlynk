@@ -1,0 +1,156 @@
+﻿@using MintLynk.Application.Dtos
+@model AdsPreviewDto
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_LayoutNoHeader.cshtml";
+}
+<!-- slider-area -->
+<section class="slider__area">
+    <div class="banner-two-col">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="banner-col-1" style="padding:40px 0;min-height:auto;">
+                        <div class="section-title mb-20 tg-heading-subheading animation-style3">
+                            <span class="sub-title">
+                                <img src="/assets/img/logo/logo.png" style="width:200px;"/>
+                            </span>
+                            <h2 class="title tg-element-title text-60-bold" style="font-size: 45px;line-height: 50px;">
+                                Smart Link Tools for<br />
+                                <span>Smart Businesses</span>
+                            </h2>
+                        </div>
+                        <p class="mb-4">Shorten, share, and track your links with real-time analytics. Unlock insights and boost engagement with MintLynk’s powerful platform.</p>
+                        <div class="choose__tab-content">
+                            <ul class="list-wrap">
+                                <li><i class="fas fa-check"></i>Enjoy full access at zero cost</li>
+                                <li>
+                                    <i class="fas fa-check"></i>Instant QR code with every link
+                                </li>
+                                <li><i class="fas fa-check"></i>Real-Time Analytics</li>
+                                <li><i class="fas fa-check"></i>Easy, secure & reliable platform</li>                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-col-2">
+            <div class="swiper-container slider_baner__active slider_baner_home6">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide slide__home7">
+                        <img src="/assets/img/landing.png" style="width:400px;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- slider-area-end -->
+<section class="error-area" style="padding:20px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="error-content">
+                    <h5 class="title" style="font-size:38px;">Hold On!<br />You're Being Redirected</h5>
+                    <p style="font-size:18px;">
+                        We’re redirecting you to your link. This won’t take long. <br>
+                        Want to skip the wait? Hit the <em>"Continue"</em> button below.
+                    </p>
+                    <p>Redirecting in <span id="countdown">7</span> seconds...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="login__area-one" style="padding:10px 0px 20px 0px;background-image:none;">
+    <div class="container">
+        <div class="box-form-login" style="padding:0;">
+            <div class="head-login">
+                <div class="form-login">
+                    <div class="blog__details-wrap">
+                        <div class="blog__avatar-wrap mb-10" style="padding:25px 20px;">
+                            <div class="blog__avatar-img" style="width:64px;">
+                                <img src="@Model.LinkPreview.FaviconUrl" alt="Favicon" style="width:64px;">
+                            </div>
+                            <div class="blog__avatar-info">
+                                <h4 class="name" style="margin-bottom:5px;"><a href="@Model.DestinationUrl" target="_blank">@Model.LinkPreview.Title</a></h4>
+                                <p>@Model.LinkPreview.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="error-area" style="padding:10px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="error-content">
+                    <a href="@Model.DestinationUrl" class="btn btn-two">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="ads" style="position:fixed; right:5px; top:50%; transform:translateY(-50%); z-index:999;width:160px;height:600px;background-color:transparent;">
+    <!-- Insert Test Ad -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-0000000000000000"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+<footer>
+    <div class="footer__area-two">
+        <div class="footer__bottom-two" style="padding:20px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="copyright-text-two float-start">
+                            <p>Copyright © @DateTime.Now.Year <a href="/">MintLynk</a>. All Right Reserved</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="copyright-text-two float-end">
+                            <div class="footer__social-two">
+                                <ul class="list-wrap">
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="fab fa-linkedin"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    let countdown = 7;
+    let countdownEl = document.getElementById("countdown");
+
+    const interval = setInterval(() => {
+        countdown--;
+        countdownEl.innerText = countdown;
+
+        if (countdown <= 0) {
+            clearInterval(interval);
+            window.location.href = "@Model.DestinationUrl";
+        }
+    }, 1000);
+</script>

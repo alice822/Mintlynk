@@ -1,0 +1,309 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MintLynk.Infrastructure.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    if (SignInManager.IsSignedIn(User) && !Context.Request.Path.StartsWithSegments("/app/dashboard"))
+    {
+        Context.Response.Redirect("/app/dashboard");
+    }
+}
+<!DOCTYPE html>  
+<html class="no-js" lang="en">  
+<head>  
+    <meta charset="utf-8" />  
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />  
+    <title>MintLynk</title>  
+    <script src="assets/js/vendor/color-modes.js"></script>  
+    <meta name="description" content="MintLynk" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1" />  
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />  
+    <!-- Place favicon.ico in the root directory -->  
+    <!-- CSS here -->  
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />  
+    <link rel="stylesheet" href="/assets/css/animate.min.css" />  
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css" />  
+    <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css" />  
+    <link rel="stylesheet" href="/assets/css/flaticon.css" />  
+    <link rel="stylesheet" href="/assets/css/odometer.css" />  
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.css" />  
+    <link rel="stylesheet" href="/assets/css/aos.css" />  
+    <link rel="stylesheet" href="/assets/css/default.css" />  
+    <link rel="stylesheet" href="/assets/css/main.css" />  
+    <style>  
+        .form-control:focus {  
+            border: none !important;  
+            box-shadow: none !important;  
+        }  
+        .services__bg-seven .card-info p {
+            min-height: 73px !important;
+        }
+    </style>  
+</head>  
+<body>  
+    <!-- Scroll-top -->  
+    <button class="scroll__top scroll-to-target" data-target="html">  
+        <i class="fas fa-angle-up"></i>  
+    </button>  
+    <header class="tg-header__style-four transparent-header">  
+        <div class="tg-header__top tg-header__top-three">  
+            <div class="container">  
+                <div class="row">  
+                    <div class="col-lg-6">  
+                        <ul class="tg-header__top-info tg-header__top-info-four list-wrap">  
+                            <li>  
+                                <i class="flaticon-envelope"></i>  
+                                <a href="mailto:info@mintlynk.com">info@mintlynk.com</a>  
+                            </li>  
+                            <li>  
+                                <i class="fas fa-question-circle"></i>  
+                                <a href="/help-center">Help Center</a>  
+                            </li>  
+                        </ul>  
+                    </div>  
+                    <div class="col-lg-6">  
+                        <ul class="tg-header__top-right tg-header__top-right-four list-wrap">  
+                            <li>  
+                                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>  
+                            </li>  
+                            <li>  
+                                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>  
+                            </li>  
+                            <li>  
+                                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>  
+                            </li>  
+                        </ul>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+        <div id="sticky-header" class="tg-header__area tg-header__area-four sticky-white">  
+            <div class="container">  
+                <div class="row">  
+                    <div class="col-12">  
+                        <div class="tgmenu__wrap home-9">  
+                            <nav class="tgmenu__nav">  
+                                <div class="logo">  
+                                    <a href="/"><img src="/assets/img/logo/logo.png" alt="Logo" /></a>  
+                                </div>  
+                                <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-lg-flex">  
+                                    <ul class="navigation">  
+                                        <li class="menu-item-has-children">  
+                                            <a href="#">Features</a>  
+                                            <ul class="sub-menu">  
+                                                <li><a href="/features/short-links">Short Links</a></li>  
+                                                <li><a href="/features/qr-generator">QR Generator</a></li>  
+                                                <li><a href="/features/landing-pages">Mini Pages</a></li>  
+                                                <li><a href="/features/link-stats">Link Stats</a></li>  
+                                            </ul>  
+                                        </li>  
+                                        <li class="menu-item-has-children">  
+                                            <a href="#">Solution For</a>  
+                                            <ul class="sub-menu">  
+                                                <li><a href="/solution/retail">Retail</a></li>  
+                                                <li><a href="/solution/hospitality">Hospitality</a></li>  
+                                                <li><a href="/solution/healthcare">Healthcare</a></li>  
+                                                <li><a href="/solution/digital-marketing">Digital Marketing</a></li>  
+                                                <li><a href="/solution/professional-services">Professional Services</a></li>  
+                                            </ul>  
+                                        </li>  
+                                        <li><a href="/blog">Blog</a></li>  
+                                        <li><a href="/case-studies">Case Studies</a></li>  
+                                    </ul>  
+                                </div>  
+                                <div class="tgmenu__action tgmenu__action-five d-none d-md-block">  
+                                    <ul class="list-wrap">  
+                                        @if (SignInManager.IsSignedIn(User))  
+                                        {  
+                                            <li class="header-btn"><a href="/app/dashboard" class="btn">Go to Dashboard</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="header-btn-two"><a href="/login" class="btn border-btn">log in</a></li>
+                                            <li class="header-btn"><a href="/register" class="btn">Sign up</a></li>
+                                        }                                        
+                                    </ul>  
+                                </div>  
+                            </nav>  
+                        </div>  
+                        <!-- Mobile Menu  -->  
+                        <div class="tgmobile__menu">  
+                            <nav class="tgmobile__menu-box">  
+                                <div class="close-btn"><i class="fas fa-times"></i></div>  
+                                <div class="nav-logo">  
+                                    <a href="/"><img src="/assets/img/logo/logo.png" alt="Logo" /></a>  
+                                </div>  
+                                <div class="tgmobile__menu-outer">  
+                                </div>  
+                                <div class="tgmobile__menu-bottom">  
+                                    <div class="contact-info">  
+                                        <ul class="list-wrap">  
+                                            <li><a href="mailto:info@mintlynk.com">info@mintlynk.com</a></li>  
+                                        </ul>  
+                                    </div>  
+                                    <div class="social-links">  
+                                        <ul class="list-wrap">  
+                                            <li>  
+                                                <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>  
+                                            </li>  
+                                            <li>  
+                                                <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>  
+                                            </li>  
+                                            <li>  
+                                                <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>  
+                                            </li>  
+                                        </ul>  
+                                    </div>  
+                                </div>  
+                            </nav>  
+                        </div>  
+                        <div class="tgmobile__menu-backdrop"></div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </header>  
+    <main class="fix">  
+        @RenderBody()  
+       
+    </main>  
+    <footer>  
+        <div class="footer__area-two">  
+            <div class="footer__newsletter-two">  
+                <div class="container">  
+                    <div class="footer__newsletter-inner">  
+                        <h2 class="title">Subscribe Newsletter For Latest Updates</h2>  
+                        <form action="#">  
+                            <input type="text" placeholder="e-mail Type . . ." />  
+                            <button type="submit" class="btn">Subscribe</button>  
+                        </form>  
+                        <div class="footer__social-two">  
+                            <ul class="list-wrap">  
+                                <li>  
+                                    <a href="javascript:void(0)"><i class="fab fa-linkedin"></i></a>  
+                                </li>  
+                                <li>  
+                                    <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>  
+                                </li>  
+                                <li>  
+                                    <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>  
+                                </li>  
+                            </ul>  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+            <div class="footer__top-two">  
+                <div class="container">  
+                    <div class="row">  
+                        <div class="col-xl-3 col-lg-3 col-sm-6">  
+                            <div class="footer-widget">  
+                                <h4 class="fw-title">Why MintLynk?</h4>  
+                                <div class="footer-link-list">  
+                                    <ul class="list-wrap">  
+                                        <li><a href="/why/free">It's Free</a></li>  
+                                        <li><a href="/why/secure">It's Secure</a></li>  
+                                        <li><a href="/why/easy-to-use">Easy to Use</a></li>  
+                                        <li><a href="/why/simple-powerful">Simple, Yet Powerful</a></li>  
+                                    </ul>  
+                                </div>  
+                            </div>  
+                        </div>  
+                        <div class="col-xl-2 col-lg-3 col-sm-6">  
+                            <div class="footer-widget">  
+                                <h4 class="fw-title">Features</h4>  
+                                <div class="footer-link-list">  
+                                    <ul class="list-wrap">  
+                                        <li><a href="/features/short-links">Short Links</a></li>  
+                                        <li><a href="/features/qr-generator">QR Generator</a></li>  
+                                        <li><a href="/features/landing-pages">Mini Pages</a></li>  
+                                        <li><a href="/features/link-stats">Link Stats</a></li>  
+                                    </ul>  
+                                </div>  
+                            </div>  
+                        </div>  
+                        <div class="col-xl-3 col-lg-4 col-sm-6">  
+                            <div class="footer-widget">  
+                                <h4 class="fw-title">Solution For</h4>  
+                                <div class="footer-link-list">  
+                                    <ul class="list-wrap">  
+                                        <li><a href="/solution/retail">Retail</a></li>  
+                                        <li><a href="/solution/hospitality">Hospitality</a></li>  
+                                        <li><a href="/solution/healthcare">Healthcare</a></li>  
+                                        <li><a href="/solution/digital-marketing">Digital Marketing</a></li>  
+                                        <li><a href="/solution/professional-services">Professional Services</a></li>  
+                                    </ul>  
+                                </div>  
+                            </div>  
+                        </div>  
+                        <div class="col-xl-2 col-lg-4 col-sm-6">  
+                            <div class="footer-widget">  
+                                <h4 class="fw-title">Resources</h4>  
+                                <div class="footer-link-list">  
+                                    <ul class="list-wrap">  
+                                        <li><a href="/blog">Blog</a></li>  
+                                        <li><a href="/help-center">Help Center</a></li>  
+                                        <li><a href="/case-studies">Case Studies</a></li>  
+                                    </ul>  
+                                </div>  
+                            </div>  
+                        </div>  
+                        <div class="col-xl-2 col-lg-4 col-md-6">  
+                            <div class="footer-widget">  
+                                <h4 class="fw-title">Company</h4>  
+                                <div class="footer-link-list">  
+                                    <ul class="list-wrap">  
+                                        <li><a href="/about-us">About us</a></li>  
+                                        <li><a href="/partners">Partners</a></li>  
+                                        <li><a href="/contact">Contact us</a></li>  
+                                        <li><a href="/success-stories">Success Stories</a></li>  
+                                    </ul>  
+                                </div>  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+            <div class="footer__bottom-two">  
+                <div class="container">  
+                    <div class="row">  
+                        <div class="col-lg-6">  
+                            <div class="copyright-text-two float-start">  
+                                <p>Copyright © @DateTime.Now.Year <a href="/">MintLynk</a>. All Right Reserved</p>  
+                            </div>  
+                        </div>  
+                        <div class="col-lg-6">  
+                            <div class="copyright-text-two float-end">  
+                                <p>  
+                                    <a href="/privacy-policy">Privacy Policy</a>&nbsp;•&nbsp;<a href="/cookie-policy">Cookie Policy</a>&nbsp;•&nbsp;<a href="/terms">Terms</a>  
+                                </p>  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </footer>  
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>  
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>  
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>  
+    <script src="/assets/js/jquery.odometer.min.js"></script>  
+    <script src="/assets/js/jquery.appear.js"></script>  
+    <script src="/assets/js/gsap.js"></script>  
+    <script src="/assets/js/ScrollTrigger.js"></script>  
+    <script src="/assets/js/SplitText.js"></script>  
+    <script src="/assets/js/gsap-animation.js"></script>  
+    <script src="/assets/js/jquery.parallaxScroll.min.js"></script>  
+    <script src="/assets/js/swiper-bundle.js"></script>  
+    <script src="/assets/js/ajax-form.js"></script>  
+    <script src="/assets/js/wow.min.js"></script>  
+    <script src="/assets/js/aos.js"></script>  
+    <script src="/assets/js/main.js?v=1101"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    @await RenderSectionAsync("Scripts", required: false)  
+    <script>  
+        function rangeSlide(value) {  
+            document.getElementById("rangeValue").innerHTML = value;  
+        }  
+    </script>  
+</body>  
+</html>

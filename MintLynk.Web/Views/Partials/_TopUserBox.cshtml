@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MintLynk.Web.Extensions
+@using MintLynk.Infrastructure.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var appUser = new ApplicationUser();
+    if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        appUser = await UserManager.GetUserAsync(User);
+    }
+    var fullName = appUser?.GetFullName() ?? "";
+    var role = User?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "";
+}
+<div id="dropdownProfile"
+     class="dropdown-menu-sm z-10 hidden rounded-lg bg-white p-3 shadow-lg dark:bg-neutral-700">
+    <div class="mb-4 flex items-center justify-between gap-2 rounded-lg bg-primary-50 px-4 py-3 dark:bg-primary-600/25">
+        <div>
+            <h6 class="mb-0 text-lg font-semibold text-neutral-900">
+               @fullName
+            </h6>
+            <span class="text-neutral-500">@role</span>
+        </div>
+        <button type="button" class="hover:text-danger-600">
+            <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>
+        </button>
+    </div>
+
+    <div class="scroll-sm max-h-[400px] overflow-y-auto pe-2">
+        <ul class="flex flex-col">
+            <li>
+                <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-primary-600"
+                   href="/app/dashoard/profile">
+                    <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon>
+                    My Profile
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-primary-600"
+                   href="email.html">
+                    <iconify-icon icon="tabler:message-check" class="icon text-xl"></iconify-icon>
+                    Inbox
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-primary-600"
+                   href="company.html">
+                    <iconify-icon icon="icon-park-outline:setting-two" class="icon text-xl"></iconify-icon>
+                    Setting
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center gap-4 px-0 py-2 text-black hover:text-danger-600"
+                   href="javascript:void(0)">
+                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>
+                    Log Out
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

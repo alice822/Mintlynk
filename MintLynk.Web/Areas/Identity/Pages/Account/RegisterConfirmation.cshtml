@@ -1,0 +1,42 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- breadcrumb-area -->
+<section class="breadcrumb__area breadcrumb__bg" style="padding:145px 0 110px !important;">
+    <div class="bg-img position-absolute top-0 bottom-0 start-0 w-100 h-100" style="background-color:gray;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="breadcrumb__content">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb__shape">
+        <img src="/assets/img/images/breadcrumb_shape01.png" alt="Apexa" class="dark-opacity" />
+        <img src="/assets/img/images/breadcrumb_shape02.png" alt="Apexa" class="rightToLeft dark-opacity" />
+        <img src="/assets/img/images/breadcrumb_shape03.png" alt="Apexa" class="dark-opacity" />
+        <img src="/assets/img/images/breadcrumb_shape04.png" alt="Apexa" class="dark-opacity" />
+        <img src="/assets/img/images/breadcrumb_shape05.png" alt="Apexa" class="alltuchtopdown dark-opacity" />
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+<section class="error-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="error-content">
+                    <h2 class="title">@ViewData["Title"]</h2>
+                    <p>
+                        Confirmation link sent. Please check your email to confirm your registration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

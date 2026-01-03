@@ -1,0 +1,216 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MintLynk.Infrastructure.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MintLynk - Dashboard</title>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap"
+          rel="stylesheet" />
+
+    <!-- remix icon font css  -->
+    <link rel="stylesheet" href="/dashboard/css/remixicon.css" />
+    <!-- Apex Chart css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/apexcharts.css" />
+    <!-- Data Table css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/dataTables.min.css" />
+    <!-- Text Editor css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/editor-katex.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/lib/editor.atom-one-dark.min.css" />
+    <link rel="stylesheet" href="/dashboard/css/lib/editor.quill.snow.css" />
+    <!-- Date picker css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/flatpickr.min.css" />
+    <!-- Calendar css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/full-calendar.css" />
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/jquery-jvectormap-2.0.5.css" />
+    <!-- Popup css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/magnific-popup.css" />
+    <!-- Slick Slider css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/slick.css" />
+    <!-- prism css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/prism.css" />
+    <!-- file upload css -->
+    <link rel="stylesheet" href="/dashboard/css/lib/file-upload.css" />
+
+    <link rel="stylesheet" href="/dashboard/css/lib/audioplayer.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="/dashboard/css/style.css" />
+    <style>
+        .sidebar-menu li a {
+            padding-top: 0.925rem !important;
+            padding-bottom: 0.925rem !important;
+        }
+
+        .truncate-url {
+            display: inline-block;
+            max-width: 70%; /* Adjust as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: bottom;
+        }
+        .text-danger {
+            color: #dc2626 !important;
+        }
+        .text-left {
+            text-align: left !important;
+        }
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
+            background-color: #f3f4f6 !important;
+            color: #6b7280;
+            opacity: 1;
+        }
+
+        .swal2-confirm {
+            background: #d33 !important;
+        }
+
+        .swal2-cancel {
+            background: #3085d6 !important;
+        }
+    </style>
+</head>
+<body class="bg-neutral-100 dark:bg-neutral-800 dark:text-white">
+
+    <aside class="sidebar">
+        <button type="button" class="sidebar-close-btn !mt-4">
+            <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+        </button>
+        <div>
+            <a href="index.html" class="sidebar-logo">
+                <img src="/assets/img/logo/logo.png" alt="Logo" class="light-logo">
+            </a>
+        </div>
+        <div class="sidebar-menu-area">
+            <ul class="sidebar-menu" id="sidebar-menu">
+                <li>
+                    <a href="/app/dashboard">
+                        <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/app/dashboard/short-links">
+                        <iconify-icon icon="mage:link" class="menu-icon"></iconify-icon>
+                        <span>Short Links</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/app/dashboard/qr-codes">
+                        <iconify-icon icon="bi:qr-code" class="menu-icon"></iconify-icon>
+                        <span>QR Codes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/app/dashboard/landing-pages">
+                        <iconify-icon icon="solar:document-text-outline" class="menu-icon"></iconify-icon>
+                        <span>Mini Pages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/app/dashboard/analytics">
+                        <iconify-icon icon="material-symbols:map-outline" class="menu-icon"></iconify-icon>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <hr />
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <iconify-icon icon="icon-park-outline:setting-two" class="menu-icon"></iconify-icon>
+                        <span>Settings</span>
+                    </a>
+                   
+                </li>
+            </ul>
+            <p class="mb-0 text-neutral-600" style="bottom: 3px;position: absolute;font-size: 14px;">© @DateTime.Now.Year <a href="/">MintLynk</a>. All Right Reserved</p>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <div class="navbar-header border-b border-neutral-200 dark:border-neutral-600">
+            <div class="flex items-center justify-between">
+                <div class="col-auto">
+                    <div class="flex flex-wrap items-center gap-[16px]">
+                        <button type="button" class="sidebar-toggle">
+                            <iconify-icon icon="heroicons:bars-3-solid"
+                                          class="icon non-active"></iconify-icon>
+                            <iconify-icon icon="iconoir:arrow-right"
+                                          class="icon active"></iconify-icon>
+                        </button>
+                        <button type="button" class="sidebar-mobile-toggle d-flex !leading-[0]">
+                            <iconify-icon icon="heroicons:bars-3-solid"
+                                          class="icon !text-[30px]"></iconify-icon>
+                        </button>
+                        <form class="navbar-search">
+                            <input type="text" name="search" placeholder="Search" />
+                            <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button type="button"
+                                id="theme-toggle"
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700 dark:text-white">
+                            <span class="show">
+                                <i class="ri-question-line"></i>
+                            </span>
+                        </button>
+                        <button data-dropdown-toggle="dropdownProfile"
+                                class="flex items-center justify-center rounded-full"
+                                type="button">
+                            <img src="/dashboard/images/user.png"
+                                 alt="image"
+                                 class="object-fit-cover h-10 w-10 rounded-full" />
+                        </button>
+                        <partial name="/Views/Partials/_TopUserBox.cshtml" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-main-body">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- jQuery library js -->
+    <script src="/dashboard/js/lib/jquery-3.7.1.min.js"></script>
+    <!-- Apex Chart js -->
+    <script src="/dashboard/js/lib/apexcharts.min.js"></script>
+    <!-- Data Table js -->
+    <script src="/dashboard/js/lib/simple-datatables.min.js"></script>
+    <!-- Iconify Font js -->
+    <script src="/dashboard/js/lib/iconify-icon.min.js"></script>
+    <!-- jQuery UI js -->
+    <script src="/dashboard/js/lib/jquery-ui.min.js"></script>
+    <!-- Vector Map js -->
+    <script src="/dashboard/js/lib/jquery-jvectormap-2.0.5.min.js"></script>
+    <script src="/dashboard/js/lib/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- Popup js -->
+    <script src="/dashboard/js/lib/magnifc-popup.min.js"></script>
+    <!-- Slick Slider js -->
+    <script src="/dashboard/js/lib/slick.min.js"></script>
+    <!-- prism js -->
+    <script src="/dashboard/js/lib/prism.js"></script>
+    <!-- file upload js -->
+    <script src="/dashboard/js/lib/file-upload.js"></script>
+    <!-- audio player -->
+    <script src="/dashboard/js/lib/audioplayer.js"></script>
+    <script src="/dashboard/js/flowbite.min.js"></script>
+    <!-- main js -->
+    <script src="/dashboard/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

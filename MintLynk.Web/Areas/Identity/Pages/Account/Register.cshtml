@@ -1,0 +1,70 @@
+﻿@page "/register"
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutNoHeader.cshtml";
+}
+<section class="register__area-one">
+    <div class="container">
+        <div class="text-center mb-55">
+            @* <h1 class="text-48-bold">Create An Account</h1> *@
+        </div>
+        <div class="box-form-login">
+            <div class="head-login">
+                <h3>Registration Isn’t Open Yet!</h3>
+
+@*                 @{
+                    if (Model.ExternalLogins?.Count > 0)
+                    {
+                        <p>Create an account today and start using our platform</p>
+                        <div class="box-login-with">
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-login-social" name="provider" value="@provider.Name" title="Sign In With @provider.DisplayName">
+                                            <img src="/assets/img/login/@(provider.Name).svg" />
+                                            Sign In With @provider.DisplayName
+                                        </button>
+                                    </div>                                 
+                                }
+                            </form>
+                        </div>
+                        <div class="text-or"><span>or</span></div>
+                    }
+                } *@
+
+                <div class="form-login">
+                   @*  <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control account" placeholder="Your Name" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Email" class="form-control email-address" autocomplete="off" aria-required="true" placeholder="Email Address" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="box-forgot-pass">
+                            <label> <input type="checkbox" class="cb-remember" value="1" /> <span>I have read and agree to the Terms & Conditions and the Privacy Policy of this website.</span> </label>
+                        </div>
+                        <div class="form-group">
+                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Sign up now</button>
+                        </div>                        
+                        <p>Already have an account? <a asp-page="./login" class="link-bold">Sign In</a> now</p>
+                    </form> *@
+                    <p>
+                        We’re excited that you’re interested! 🌟<br />
+                    </p> <p>
+                        Right now, registration is by invitation only, but don’t worry we’ll let you know as soon as it’s open to everyone.<br/><br/>
+                        Stay tuned and get ready to join the fun! 🚀
+                    </p>
+                    <p><a href="/" class="link-bold">Go Back to Home</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

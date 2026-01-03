@@ -1,0 +1,541 @@
+﻿@using System.Text.Json
+@model LinkDetailViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    var link = Model;
+}
+
+<div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+    <div>
+        <div class="flex flex-col justify-between overflow-hidden mx-auto w-3/5" style="width:60%;">
+            <div class="flex flex-col w-full mb-3">
+                <h6 class="font-semibold mb-0 dark:text-white">Link Overview & Insights</h6>
+                <p class="text-gray-600 text-sm">
+                    This is your generated short link with its QR code. View key details and analytics below.
+                </p>
+            </div>
+        </div>
+        <div class="card border border-neutral-200  bg-white  rounded-lg shadow p-6 flex flex-col justify-between overflow-hidden mx-auto w-3/5 mb-5" style="width:60%;">
+            <div class="flex w-full">
+                <!-- Column 1: 20% -->
+                <div class="w-full flex-none min-w-0 flex flex-col justify-center items-center pr-2 me-2">
+                    <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center bg-gray-100 mb-2">
+                        <img src="@link.FavIconUrl" alt="Favicon" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <!-- Column 2: 50% -->
+                <div class="basis-[50%] flex-none min-w-0 flex flex-col justify-start items-center px-2 me-10" style="width:65%;">
+                    <h5 class="font-bold text-[2rem] text-gray-600 truncate w-full">
+                        <a href="@link.ShortUrl" target="_blank" class="hover:underline">
+                            @(string.IsNullOrEmpty(link.Title) ? link.ShortUrl?.Replace("https://", "").Replace("http://", "") : link.Title)
+                        </a>
+                    </h5>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 break-all truncate w-full mb-2">
+                        <a href="@link.ShortUrl" class="text-blue-600 no-underline font-bold text-[1.6rem] hover:underline" target="_blank">
+                            @link.ShortUrl?.Replace("https://", "").Replace("http://", "")
+                        </a>
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 break-all truncate w-full">
+                        <a href="@link.DestinationUrl" class="text-black no-underline hover:underline text-truncate" target="_blank">
+                            @link.DestinationUrl
+                        </a>
+                    </p>
+
+                </div>
+                <!-- Column 3: 30% -->
+                <div class="basis-[30%] flex-none min-w-0 flex flex-col justify-start items-end pl-2">
+                    <div class="flex flex-row">
+                        <button type="button" data-url="@link.ShortUrl" data-popover-target="popover-copy@(link.EntityId)" data-popover-placement="top" class="copy-btn btn border border-neutral-300 rounded w-8 h-8 flex items-center justify-center me-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <iconify-icon icon="mdi:content-copy" class="text-lg"></iconify-icon>
+                        </button>
+                        <div data-popover id="popover-copy@(link.EntityId)" role="tooltip" class="absolute z-10 invisible inline-block w-auto text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 shadow-lg">
+                            <div class="px-3 py-2">
+                                <p>Copy</p>
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        <a href="/app/dashboard/short-links/@(link.EntityId)/detail" data-modal-target="shareModal" data-modal-toggle="shareModal" data-popover-target="popover-view@(link.EntityId)" class="btn border border-gray-300 rounded w-8 h-8 flex items-center justify-center me-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <iconify-icon icon="mdi:share-variant" class="text-lg"></iconify-icon>
+                        </a>
+                        <div data-popover id="popover-view@(link.EntityId)" role="tooltip" class="absolute z-10 invisible inline-block w-auto text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 shadow-lg">
+                            <div class="px-3 py-2">
+                                <p>Share</p>
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        <a href="/app/dashboard/short-links/@(link.EntityId)/edit" data-popover-target="popover-edit@(link.EntityId)" class="btn border border-gray-300 rounded w-8 h-8 flex items-center justify-center me-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <iconify-icon icon="mdi:pencil-outline" class="text-lg"></iconify-icon>
+                        </a>
+                        <div data-popover id="popover-edit@(link.EntityId)" role="tooltip" class="absolute z-10 invisible inline-block w-auto text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 shadow-lg">
+                            <div class="px-3 py-2">
+                                <p>Edit</p>
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        <button data-dropdown-toggle="action-@(link.EntityId)" data-dropdown-placement="bottom" class="border border-gray-300 rounded w-8 h-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" type="button">
+                            <iconify-icon icon="ph:dots-three-outline-fill" class="menu-icon text-lg"></iconify-icon>
+                        </button>
+                        <div id="action-@(link.EntityId)" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-2xl w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-base text-gray-700 dark:text-gray-200">
+                                <li>
+                                    <a href="javascript:void(0)" class="btn-delete flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <iconify-icon icon="mdi:delete-outline" class="text-lg"></iconify-icon>
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex flex-row">
+                        <img src="@link.QrCode" alt="Qr Code" style="width:120px;" />
+                    </div>
+                </div>
+            </div>
+            <!-- Footer/meta row as before -->
+            <div class="flex w-full">
+                <hr class="w-full mt-5" />
+            </div>
+            <div class="mt-2 flex justify-between items-center w-full">
+                <!-- Left column: start-aligned -->
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-black flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 8H4V19H20V8ZM15.0355 10.136L16.4497 11.5503L11.5 16.5L7.96447 12.9645L9.37868 11.5503L11.5 13.6716L15.0355 10.136Z"></path>
+                        </svg>
+                        <span class="text-16-semibold font-bold">@link.CreatedAt.ToString("MMM dd, yyyy")</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+        <div class="flex flex-row gap-4 justify-center w-4/5 mx-auto mb-5" style="width:60%;">
+            <!-- QR Code Block (25%) with QR Scan text and icon -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-between items-center flex-none text-center" style="width:25%;">
+                @* <img src="@link.QrCode" alt="Qr Code" style="width:150px;" /> *@
+                @* <div class="mt-4 flex flex-col items-center">
+                    <span class="font-semibold text-gray-700 text-sm">@link.TotalQrScan QR Scan</span>
+                </div> *@
+                <iconify-icon icon="mdi:qrcode" class="text-2xl text-blue-500 mb-2"></iconify-icon>
+                <span class="font-semibold text-gray-700 text-sm mb-1">QR Scans</span>
+                <span class="text-4xl font-extrabold text-gray-900">@link.TotalQrScan</span>
+            </div>
+            <!-- Block 2 (25%) -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center flex-none text-center" style="width:25%;">
+                <iconify-icon icon="mdi:chart-bar" class="text-2xl text-blue-500 mb-2"></iconify-icon>
+                <span class="font-semibold text-gray-700 text-sm mb-1">All time engagements</span>
+                <span class="text-4xl font-extrabold text-gray-900">@link.TotalEngagement</span>
+            </div>
+            <!-- Block 3 (25%) -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center flex-none text-center" style="width:25%;">
+                <iconify-icon icon="mdi:mouse" class="text-2xl text-green-500 mb-2"></iconify-icon>
+                <span class="font-semibold text-gray-700 text-sm mb-1">Link Click</span>
+                <span class="text-4xl font-extrabold text-gray-900">@link.TotalLinkClick</span>
+            </div>
+            <!-- Block 4 (25%) -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center flex-none text-center" style="width:25%;">
+                <iconify-icon icon="mdi:calendar-week" class="text-2xl text-orange-500 mb-2"></iconify-icon>
+                <span class="font-semibold text-gray-700 text-sm mb-1">Last 7 days</span>
+                <span class="text-4xl font-extrabold text-gray-900">@link.SevenDaysEngagement</span>
+            </div>
+        </div>
+        <div class="flex flex-row gap-4 justify-center w-4/5 mx-auto mb-5" style="width:60%;">
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-between items-center flex-none text-center" style="width:100%;">
+                <div class="card-body p-6 w-full">
+                    <span class="font-semibold text-gray-700 text-sm">Engagements over time</span>
+                    <div id="columnChart" style="width:100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-4 justify-center w-4/5 mx-auto mb-5" style="width:60%;">
+            <!-- Block Browser -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-between items-center flex-none text-center w-1/3" style="width:33.3333%;">
+                <span class="font-semibold text-gray-700 text-sm">Browser</span>
+                <div id="browserChart" class="w-auto inline-block apexcharts-tooltip-z-none"></div>
+            </div>
+            <!-- Block OS -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center flex-none text-center w-1/3" style="width:33.3333%;">
+                <span class="font-semibold text-gray-700 text-sm mb-1">Operating System</span>
+                <div id="OsChart" class="w-auto inline-block apexcharts-tooltip-z-none"></div>
+            </div>
+            <!-- Block Device -->
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center flex-none text-center w-1/3" style="width:33.3333%;">               
+                <span class="font-semibold text-gray-700 text-sm mb-1">Device</span>
+                <div id="deviceChart" class="w-auto inline-block apexcharts-tooltip-z-none"></div>
+            </div>
+        </div>
+        <div class="flex flex-row gap-4 justify-center w-4/5 mx-auto mb-5" style="width:60%;">
+            <div class="card border border-neutral-200 bg-white rounded-lg shadow p-6 flex flex-col justify-between items-center flex-none text-center" style="width:100%;">
+                <div class="card-header w-full pb-0 px-6 bg-white dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600 flex items-center flex-wrap justify-between">
+                    <h6 class="text-lg mb-0">Locations</h6>
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="card-title-tab" data-tabs-toggle="#card-location" role="tablist">
+                        <li role="presentation">
+                            <button class="inline-block px-4 py-2.5 pb-4 font-semibold border-b-2 rounded-t-lg text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" id="card-country-tab" data-tabs-target="#card-country" type="button" role="tab" aria-controls="card-country" aria-selected="true">Country</button>
+                        </li>
+                        <li role="presentation">
+                            <button class="inline-block px-4 py-2.5 pb-4 font-semibold border-b-2 rounded-t-lg dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" id="card-city-tab" data-tabs-target="#card-city" type="button" role="tab" aria-controls="card-city" aria-selected="false">City</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-6 w-full">
+                    <div id="card-location">
+                        <div id="card-country" role="tabpanel" aria-labelledby="card-country-tab" class="">
+                            <div class="table-responsive">
+                                <table id="tblCountry" class="table bordered-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" class="text-left">Country</th>
+                                            <th scope="col" style="width:30%;"></th>
+                                            <th scope="col">Engagements</th>
+                                            <th scope="col">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var countryCounter = 1;
+                                            foreach (var data in Model.Reports.CountryReport)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @countryCounter
+                                                    </td>
+                                                    <td class="text-left">@data.Name</td>
+                                                    <td>
+                                                        <div class="bg-primary-600 h-2 rounded-full dark:bg-primary-600" style="width: @(data.Percentage)%"></div>
+                                                    </td>
+                                                    <td>@data.Engagements</td>
+                                                    <td>@data.Percentage</td>
+                                                </tr>
+                                                countryCounter += 1;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="card-city" role="tabpanel" aria-labelledby="card-city-tab" class="hidden">
+                            <div class="table-responsive">
+                                <table id="tblCity" class="table bordered-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" class="text-left">City</th>
+                                            <th scope="col" style="width:30%;"></th>
+                                            <th scope="col">Engagements</th>
+                                            <th scope="col">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var cityCounter = 1;
+                                            foreach (var data in Model.Reports.CityReport)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @cityCounter
+                                                    </td>
+                                                    <td class="text-left">@data.Name</td>
+                                                    <td>
+                                                        <div class="bg-primary-600 h-2 rounded-full dark:bg-primary-600" style="width: @(data.Percentage)%"></div>
+                                                    </td>
+                                                    <td>@data.Engagements</td>
+                                                    <td>@data.Percentage</td>
+                                                </tr>
+                                                cityCounter += 1;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Share Modal -->
+<div id="shareModal" tabindex="-1" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex hidden" aria-modal="true" role="dialog">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+                <h5 class="modal-title text-xl" id="exampleModalEditLabel">Share</h5>
+                <button id="closeShareModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="shareModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="flex flex-col gap-2 p-6">
+                <!-- Facebook -->
+                <a id="shareFacebook" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">Facebook</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- Twitter -->
+                <a id="shareTwitter" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.59-2.47.7a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.39-.58 2.19 0 1.51.77 2.85 1.95 3.63a4.28 4.28 0 0 1-1.94-.54v.05c0 2.11 1.5 3.87 3.5 4.27-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.12 2.94 3.99 2.97A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.5 8.5 0 0 1-2.54.7z" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">Twitter</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- LinkedIn -->
+                <a id="shareLinkedIn" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.5 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">LinkedIn</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- WhatsApp -->
+                <a id="shareWhatsApp" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.471-.148-.67.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.611-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.571-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.099 3.2 5.077 4.363.711.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.768.464 3.484 1.345 4.997l-1.429 5.221 5.352-1.406c1.463.801 3.104 1.188 4.729 1.188 5.514 0 9.997-4.483 9.997-9.997s-4.483-9.997-9.997-9.997zm0 18.181c-1.522 0-3.021-.396-4.324-1.144l-.309-.178-3.176.836.847-3.099-.201-.318c-.822-1.302-1.257-2.807-1.257-4.378 0-4.411 3.588-7.999 7.999-7.999s7.999 3.588 7.999 7.999-3.588 7.999-7.999 7.999z" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">WhatsApp</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- Telegram -->
+                <a id="shareTelegram" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.036 16.572l-.396 3.726c.567 0 .813-.243 1.11-.535l2.664-2.537 5.522 4.027c1.012.557 1.74.264 1.99-.935l3.61-16.84c.33-1.527-.553-2.127-1.54-1.76l-21.1 8.13c-1.44.557-1.425 1.35-.247 1.71l5.396 1.685 12.53-7.89c.59-.37 1.13-.165.687.205z" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">Telegram</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- Reddit -->
+                <a id="shareReddit" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.385.6.111.82-.261.82-.577 0-.285-.011-1.04-.017-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.606-2.665-.304-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.625-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 21.796 24 17.298 24 12" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">Reddit</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+                <!-- Email -->
+                <a id="shareEmail" data-url="@link.ShortUrl" href="javascript:void(0);" target="_blank" class="flex items-center justify-between gap-2 p-4 border border-neutral-200 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-600">
+                    <span class="flex items-center gap-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13.065l-11.99-7.065v14h23.98v-14l-11.99 7.065zm11.99-9.065h-23.98l11.99 7.065 11.99-7.065z" /></svg>
+                        <span class="text-base mb-0 font-medium text-neutral-600 dark:text-neutral-200 block">Email</span>
+                    </span>
+                    <span class="text-secondary-light text-base"><i class="ri-arrow-right-s-line"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        @{
+                        var browserLabels = Model.Reports.BrowserReports.Select(x => x.Name).ToList();
+                var browserData = Model.Reports.BrowserReports.Select(x => x.Engagements).ToList();
+
+                var osLabels = Model.Reports.OsReport.Select(x => x.Name).ToList();
+                var osData = Model.Reports.OsReport.Select(x => x.Engagements).ToList();
+
+                var deviceLabels = Model.Reports.DeviceReport.Select(x => x.Name).ToList();
+                var deviceData = Model.Reports.DeviceReport.Select(x => x.Engagements).ToList();
+
+                var dateLabels = Model.Reports.DateReport.Select(x => x.Date).ToList();
+                var qrScanData = Model.Reports.DateReport.Select(x => x.QrScan).ToList();
+                var linkClickData = Model.Reports.DateReport.Select(x => x.LinkClick).ToList();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+              var colors = [
+                  '#FF9F29', '#487FFF', '#E4F1FF', '#00C49A', '#FF6384', '#FFD700', '#36A2EB', '#FFCE56',
+                  '#8E44AD', '#2ECC71', '#E67E22', '#F44336', '#34495E', '#00B8D9', '#FF6F61', '#B2BABB',
+                  '#6C3483', '#1ABC9C', '#D35400', '#7F8C8D'
+              ];
+
+            document.querySelectorAll('.copy-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var url = btn.getAttribute('data-url');
+                        if (!url) return;
+                        navigator.clipboard.writeText(url).then(function() {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Copied!',
+                                text: 'Short URL copied to clipboard.',
+                                timer: 3000,
+                                showConfirmButton: false,
+                                position: 'top-end',
+                                toast: true
+                            });
+                        });
+                    });
+                });
+
+        // Share Modal Logic
+        document.querySelectorAll('.btn[data-popover-target^="popover-view"]').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Set share URLs dynamically
+                var url = btn.getAttribute('data-url') || '@link.ShortUrl';
+                var text = encodeURIComponent(document.title + ' ' + url);
+                            document.getElementById('shareFacebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+                            document.getElementById('shareTwitter').href = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + text;
+                            document.getElementById('shareLinkedIn').href = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(url) + '&title=' + text;
+                            document.getElementById('shareWhatsApp').href = 'https://wa.me/?text=' + text;
+                            document.getElementById('shareTelegram').href = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + text;
+                            document.getElementById('shareReddit').href = 'https://www.reddit.com/submit?url=' + encodeURIComponent(url) + '&title=' + text;
+                            document.getElementById('shareEmail').href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + text;
+            });
+        });
+        document.getElementById('closeShareModal').addEventListener('click', function() {
+            document.getElementById('shareModal').classList.add('hidden');
+        });
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') document.getElementById('shareModal').classList.add('hidden');
+        });
+
+
+            var antiForgeryToken = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+            document.querySelectorAll('.btn-delete').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This short link will be deleted.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var id = btn.getAttribute('data-id');
+                            fetch(`/app/dashboard/short-links/${id}/delete`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'RequestVerificationToken': antiForgeryToken
+                                }
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Option 1: Reload the page to refresh the list
+                                    location.reload();
+                                    // Option 2: Remove the card from DOM (uncomment below if you want to remove without reload)
+                                    // btn.closest('.card').remove();
+                                    // Swal.fire('Deleted!', 'QR code has been deleted.', 'success');
+                                } else {
+                                    Swal.fire('Error', 'Failed to delete short link.', 'error');
+                                }
+                            })
+                            .catch(() => Swal.fire('Error', 'Error deleting short link.', 'error'));
+                        }
+                    });
+                });
+            });
+
+              // Base options for all doughnut charts
+              var baseDonutOptions = {
+                  colors: colors,
+                  legend: { show: true, position: 'bottom' },
+                  chart: {
+                      type: 'donut',
+                      height: 250,
+                      sparkline: { enabled: true },
+                      margin: { top: 0, right: 0, bottom: 0, left: 0 },
+                      padding: { top: 0, right: 0, bottom: 0, left: 0 }
+                  },
+                  stroke: { width: 0 },
+                  dataLabels: { enabled: false },
+                  responsive: [{
+                      breakpoint: 480,
+                      options: {
+                          chart: { width: 200 },
+                          legend: { position: 'bottom' }
+                      }
+                  }]
+              };
+
+              // Helper to create options for each chart
+              function getDonutOptions(labels, series) {
+                  return Object.assign({}, baseDonutOptions, {
+                      labels: labels,
+                      series: series
+                  });
+              }
+
+              // Render Browser Chart
+              new ApexCharts(
+                  document.querySelector("#browserChart"),
+                  getDonutOptions(
+                      @Html.Raw(JsonSerializer.Serialize(browserLabels)),
+                      @JsonSerializer.Serialize(browserData)
+                  )
+              ).render();
+
+              // Render OS Chart
+              new ApexCharts(
+                  document.querySelector("#OsChart"),
+                  getDonutOptions(
+                      @Html.Raw(JsonSerializer.Serialize(osLabels)),
+                      @JsonSerializer.Serialize(osData)
+                  )
+              ).render();
+
+              // Render Device Chart
+              new ApexCharts(
+                  document.querySelector("#deviceChart"),
+                  getDonutOptions(
+                      @Html.Raw(JsonSerializer.Serialize(deviceLabels)),
+                      @JsonSerializer.Serialize(deviceData)
+                  )
+              ).render();
+
+                // Column Chart for DateReport
+                var columnOptions = {
+                    chart: {
+                        type: 'bar',
+                        height: 300,
+                        width: '100%',
+                        toolbar: { show: false }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            horizontal: false,
+                            columnWidth: '50%'
+                        }
+                    },
+                    dataLabels: { enabled: false },
+                    xaxis: {
+                        categories: @Html.Raw(JsonSerializer.Serialize(dateLabels)),
+                        labels: {
+                        rotate: -45, // Tilt the text -45 degrees
+                        style: {
+                            fontSize: '10px'
+                        }
+                    }
+                    },
+                    yaxis: {
+                        title: { text: 'Engagements' }
+                    },
+                    series: [
+                        {
+                            name: 'QR Scans',
+                            data: @JsonSerializer.Serialize(qrScanData)
+                        },
+                        {
+                            name: 'Link Clicks',
+                            data: @JsonSerializer.Serialize(linkClickData)
+                        }
+                    ],
+                    colors: ['#726E6D', '#2B60DE'],
+                    tooltip: {
+                        y: { formatter: function(val) { return val + " engagements"; } }
+                    }
+                };
+                new ApexCharts(document.querySelector("#columnChart"), columnOptions).render();
+          });
+    </script>
+}

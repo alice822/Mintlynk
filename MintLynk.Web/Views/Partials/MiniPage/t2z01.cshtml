@@ -1,0 +1,189 @@
+﻿@using MintLynk.Application.Dtos
+@model ProfessionalProfile
+<style>
+    .experience-year .icon {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .about__img-wrap-five img {
+        min-height: unset !important;
+        object-fit: cover;
+    }
+    .icon img{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+
+    .team__details-area {
+        padding: 20px 0;
+    }
+</style>
+<section class="team__details-area">
+    <div class="container">
+        <div class="team__details-inner">
+            <div class="row align-items-center">
+                <div class="about__content-five">
+                    <div class="about__img-wrap-five">
+                        <img src="@Model.BannerImage" alt="@Model.ImageAlt">
+                        <div class="experience-year">
+                            <div class="icon">
+                                <img src="@Model.ImageUrl" alt="@Model.ImageAlt" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-5">
+                    <div class="section-title text-center mb-30">
+                        <h2 class="title">@Model.Title</h2>
+                        <span class="position">@Model.Profession</span>
+                        <p>@Model.Intro</p>
+                        <div class="team__details-info">
+                            @if (Model.SocialLinks != null && Model.SocialLinks.Any())
+                            {
+                                <ul class="list-wrap team__details-social">
+                                    @foreach (var social in Model.SocialLinks)
+                                    {
+                                        var socialIcon = "";
+                                        switch (social.Platform)
+                                        {
+                                            case "Facebook":
+                                                socialIcon = "fa-facebook-f";
+                                                break;
+                                            case "Twitter":
+                                                socialIcon = "fa-twitter";
+                                                break;
+                                            case "LinkedIn":
+                                                socialIcon = "fa-linkedin-in";
+                                                break;
+                                            case "Instagram":
+                                                socialIcon = "fa-instagram";
+                                                break;
+                                            case "YouTube":
+                                                socialIcon = "fa-youtube";
+                                                break;
+                                            case "GitHub":
+                                                socialIcon = "fa-github";
+                                                break;
+                                            default:
+                                                socialIcon = "fa-globe"; // Default icon if platform is unknown
+                                                break;
+                                        }
+                                                                    ;
+                                        <li>
+                                            <a href="@social.Url" title="@social.Platform"><i class="fab @socialIcon"></i></a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="blog__details-content">
+                    @Html.Raw(Model.Bio)
+                </div>
+                <!-- Qualifications -->
+                @if (Model.Qualification != null && Model.Qualification.Any())
+                {
+                    <div class="profile-section mb-4">
+                        <h4 class="mb-2">Qualifications</h4>
+                        <ul class="list-group">
+                            @foreach (var q in Model.Qualification.OrderBy(x => x.SortOrder))
+                            {
+                                <li class="list-group-item">
+                                    <strong>@q.Year</strong> - <span>@q.Title</span>
+                                    @if (!string.IsNullOrWhiteSpace(q.Description))
+                                    {
+                                        <div class="text-muted small">@q.Description</div>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <!-- Experience -->
+                @if (Model.Experience != null && Model.Experience.Any())
+                {
+                    <div class="profile-section mb-4">
+                        <h4 class="mb-2">Experience</h4>
+                        <ul class="list-group">
+                            @foreach (var e in Model.Experience.OrderBy(x => x.SortOrder))
+                            {
+                                <li class="list-group-item">
+                                    <strong>@e.Year</strong> - <span>@e.Title</span>
+                                    @if (!string.IsNullOrWhiteSpace(e.Description))
+                                    {
+                                        <div class="text-muted small">@e.Description</div>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <!-- Achievements -->
+                @if (Model.Achievements != null && Model.Achievements.Any())
+                {
+                    <div class="profile-section mb-4">
+                        <h4 class="mb-2">Achievements</h4>
+                        <ul class="list-group">
+                            @foreach (var a in Model.Achievements.OrderBy(x => x.SortOrder))
+                            {
+                                <li class="list-group-item">
+                                    <strong>@a.Year</strong> - <span>@a.Title</span>
+                                    @if (!string.IsNullOrWhiteSpace(a.Description))
+                                    {
+                                        <div class="text-muted small">@a.Description</div>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="profile-section mb-4">
+                    <h4 class="mb-2">Contact</h4>
+                    <div class="team__details-content">
+                        <div class="team__details-info">                           
+                            <ul class="list-wrap">
+                                @if (!string.IsNullOrEmpty(Model.ContactNumber))
+                                {
+                                    <li>
+                                        <i class="fas fa-phone"></i>
+                                        <a href="tel:@Model.ContactNumber">@Model.ContactNumber</a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Email))
+                                {
+                                    <li>
+                                        <i class="fas fa-envelope"></i>
+                                        <a href="mailto:@Model.Email">@Model.Email</a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Website))
+                                {
+                                    <li>
+                                        <i class="fas fa-globe"></i>
+                                        <a href="@Model.Website" target="_blank">@Model.Website</a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Address))
+                                {
+                                    <li>
+                                        <i class="fas fa-map-marker"></i>
+                                        @Model.Address
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

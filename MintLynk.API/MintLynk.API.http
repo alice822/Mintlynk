@@ -1,0 +1,6 @@
+@MintLynk.API_HostAddress = http://localhost:5160
+
+GET {{MintLynk.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

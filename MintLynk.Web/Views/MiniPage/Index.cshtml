@@ -1,0 +1,159 @@
+﻿@using MintLynk.Application.Dtos
+@using System.Text.Json
+@model MiniPageDto
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>MintLynk | @ViewData["Title"]</title>
+    <script src="assets/js/vendor/color-modes.js"></script>
+    <meta name="description" content="Apexa - Business Consulting HTML Template" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/assets/css/flaticon.css" />
+    <link rel="stylesheet" href="/assets/css/odometer.css" />
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.css" />
+    <link rel="stylesheet" href="/assets/css/aos.css" />
+    <link rel="stylesheet" href="/assets/css/default.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <style>
+        .social-share-fixed {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: rgba(255,255,255,0.92);
+            padding: 12px 8px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 1px 2px 8px rgba(0,0,0,0.08);
+            z-index: 10000;
+            align-items: center;
+        }
+
+            .social-share-fixed a {
+                color: #333;
+                font-size: 1.3rem;
+                transition: color 0.2s;
+                text-decoration: none;
+                pointer-events: auto;
+            }
+
+                .social-share-fixed a:hover {
+                    color: #007bff;
+                }
+
+        .create-page-link {
+            margin-top: 18px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .btn-create-page {
+            display: inline-block;
+            background: #007bff;
+            color: #fff !important;
+            font-size: 0.8rem !important;
+            padding: 8px 20px;
+            border-radius: 5px;
+            border: none;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.2px;
+            margin-top: 6px;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+            .btn-create-page:hover,
+            .btn-create-page:focus {
+                background: #0056b3;
+                color: #fff !important;
+                text-decoration: none;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            }
+        .bottom-center-logo {
+            width: 100%;
+            margin:30px 0 5px 0;
+            display: flex;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none; /* Optional: makes it non-interactive */
+        }
+
+            .bottom-center-logo img {
+                height: 40px;
+                width: 40px;
+                object-fit: contain;
+                pointer-events: auto; /* Allow interaction if needed */
+            }
+    </style>
+</head>
+<body>
+    <main class="fix">
+       @if(Model.Template == "t2z01")
+       {
+            if (!string.IsNullOrEmpty(Model.PageContent))
+            {
+                var modelData = JsonSerializer.Deserialize<ProfessionalProfile>(
+                Model.PageContent,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+                );
+                <partial name="~/Views/Partials/MiniPage/t2z01.cshtml" model="modelData" />
+            }
+       }
+    </main>
+    <div class="social-share-fixed">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=" target="_blank" title="Share on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://wa.me/?text=" target="_blank" title="Share on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <div class="create-page-link">
+            <a href="/register" class="btn-create-page">Build your page</a>
+        </div>
+    </div>
+    <div class="bottom-center-logo">
+        <div class="powered-text">Powered by&nbsp;</div>
+        <a href="/">
+            <img src="/assets/img/logo/logo-small.png" alt="MintLynk Logo" />
+        </a>
+    </div>
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery.odometer.min.js"></script>
+    <script src="/assets/js/jquery.appear.js"></script>
+    <script src="/assets/js/gsap.js"></script>
+    <script src="/assets/js/ScrollTrigger.js"></script>
+    <script src="/assets/js/SplitText.js"></script>
+    <script src="/assets/js/gsap-animation.js"></script>
+    <script src="/assets/js/jquery.parallaxScroll.min.js"></script>
+    <script src="/assets/js/swiper-bundle.js"></script>
+    <script src="/assets/js/ajax-form.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/aos.js"></script>
+    <script src="/assets/js/main.js?v=1101"></script>
+</body>
+</html>
+

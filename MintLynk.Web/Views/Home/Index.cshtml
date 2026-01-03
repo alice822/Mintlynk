@@ -1,0 +1,325 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- banner-area -->
+<section class="slider__area">
+    <div class="swiper-container slider_baner__active">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="banner__area-three banner__bg-five" data-background="/assets/img/link-banner.png" style="background-image: url('/assets/img/link-banner.png');">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-7 col-lg-6">
+                                <div class="banner__content-three home-9">
+                                    <h2 class="title">Simplifying your <span>URL shortening</span> needs.</h2>
+                                    <p class="sub" style="margin-bottom:20px;">Easily shorten your long URLs, share them anywhere with ease, and track performance with real-time analytics—smart link management made simple and free.</p>
+
+                                    <div class="col-lg-11" style="z-index:99;position:relative;">
+                                        <form id="frmQuickUrl" class="input-group mb-2 mt-3 position-relative">
+                                            @Html.AntiForgeryToken()
+                                            <input id="longUrl" autocomplete="off" type="text" class="py-3 form-control email rounded-start-3 border-end-0 border-blue" name="name" placeholder="Enter your long URL">
+                                            <div class="border border-start-0 border-blue rounded-end-3 bg-white">
+                                                <button class="btn btn-blue m-1 fs-7 fw-bold text-capitalize aos-init aos-animate" type="submit" data-aos="fade-zoom-in" data-aos-delay="100">Get Your Short URL – It's Free</button>
+                                            </div>
+                                        </form>
+                                        <span id="spanIntro" style="color:#ffffff;">Free QR code included with every short URL</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-6">
+                                <div class="banner__img home-9">
+                                    <img src="/assets/img/banner/h9_banner_img.png" alt="Apexa" data-aos="fade-left" data-aos-delay="800" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner-area-end -->
+<!-- features-area -->
+<section class="features__area">
+    <div class="container-fluid p-0">
+        <div class="features__item-wrap">
+            <div class="row g-0">
+                <div class="col-lg-3 col-md-6">
+                    <div class="features__item">
+                        <div class="features__icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="features__content">
+                            <h4 class="title"><a href="/why/free">It's Free</a></h4>
+                            <p>
+                                Enjoy unlimited short links & QR codes, no hidden fees!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="features__item">
+                        <div class="features__icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="features__content">
+                            <h4 class="title"><a href="/why/secure">It's Secure</a></h4>
+                            <p>
+                                Trusted. Encrypted. Built for your privacy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="features__item">
+                        <div class="features__icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <div class="features__content">
+                            <h4 class="title"><a href="/why/easy-to-use">Easy to Use</a></h4>
+                            <p>
+                                Make short links & QR codes—super easy!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="features__item">
+                        <div class="features__icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="features__content">
+                            <h4 class="title"><a href="/why/simple-powerful">Simple, Yet Powerful</a></h4>
+                            <p>
+                                Easy-to-use with advanced features built-in.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<partial name="~/Views/Partials/_BusinessFocusSection.cshtml" />
+<!-- services-area -->
+<section class="services__area-seven services__bg-seven">
+    <div class="position-absolute z-0">
+        <img src="assets/img/home-12/shape-7.png" alt="Apexa" data-aos="fade-left" data-aos-delay="500" />
+    </div>
+    <div class="container position-relative -1">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="section-title text-center mb-50 tg-heading-subheading animation-style3">
+                    <span class="sub-title">Solution for Every Business</span>
+                    <h2 class="title tg-element-title">Unleash the Power of Smart Links for Any Business—All in One Platform</h2>
+                </div>
+            </div>
+        </div>
+        <div class="services__item-wrap-two">
+            <div class="row justify-content-center align-items-center gutter-24">
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-store" style="color:#171A7C;font-size: 30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Retail</a></h2>
+                            <p>Boost in-store and online sales with seamless link management, QR codes for promotions, and real-time analytics to track campaign performance.</p>
+                        </div>
+                    </div>
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-shopping-cart fa-2x" style="color:#171A7C;font-size:30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Departmental Stores</a></h2>
+                            <p>Digitize your catalogs, link to exclusive deals, and display QR codes on aisles or products for quick access to details and discounts.</p>
+                        </div>
+                    </div>
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-hotel fa-2x" style="color:#171A7C;font-size:30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Hospitality</a></h2>
+                            <p>Enable guests to scan menus, access services, and submit feedback—all through branded QR codes and trackable short links.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 d-none d-lg-block">
+                    <img src="assets/img/mobile.png" alt="Mobile" />
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-heartbeat" style="color:#171A7C;font-size:30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Healthcare</a></h2>
+                            <p>Distribute appointment links, health guides, and service info via short URLs and QR codes for patients and staff—secure and efficient.</p>
+                        </div>
+                    </div>
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-bullhorn" style="color:#171A7C;font-size:30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Digital Marketing</a></h2>
+                            <p>Run powerful campaigns with branded short links and QR codes. Track every click, test variations, and measure performance in real time.</p>
+                        </div>
+                    </div>
+                    <div class="services__item-five services__item-six bg-transparent">
+                        <div class="services__icon-five">
+                            <div class="icon">
+                                <i class="fas fa-briefcase" style="color:#171A7C;font-size:30px;"></i>
+                            </div>
+                            <div class="services__icon-shape">
+                                <div class="shape one">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <rect width="64" height="64" rx="32" fill="#FDE3B0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__content-five">
+                            <h2 class="title"><a href="services-details.html">Professional Services</a></h2>
+                            <p>Share contracts, forms, and resources with trackable short links. Use QR codes for easy access during events, meetings, or consultations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- services-area-end -->
+
+@* <section class="request-area request-bg home-9" data-background="assets/img/bg/request_bg-home-12.png">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="request-content text-center tg-heading-subheading animation-style3">
+                    <div class="position-relative pb-120">
+                        <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video position-absolute top-0 start-50 translate-middle-x"><img src="assets/img/home8/play.svg" alt="Apexa" /></a>
+                    </div>
+                    <h2 class="title text-white fw-bold pt-4 text-capitalize">Watch a Quick Tutorial</h2>
+                    <p class="text-white fs-5">Empowering Businesses through Strategic Consulting With Us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> *@
+
+
+@* <section class="blog__post-area-four">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="section-title text-center mb-50 tg-heading-subheading animation-style3">
+                    <span class="sub-title">OUR BLOG UPDATE</span>
+                    <h2 class="title tg-element-title">Featured News And Insights</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-10">
+                <div class="blog-post-item blog__post-three shine-animate-item">
+                    <div class="blog-post-thumb blog__post-thumb-three">
+                        <a href="blog-details.html" class="shine-animate"><img src="assets/img/blog/blog_post01.jpg" alt="Apexa" /></a>
+                    </div>
+                    <div class="blog-post-content blog__post-content-three">
+                        <a href="blog.html" class="post-tag">Business</a>
+                        <h2 class="title"><a href="blog-details.html">Marketing your are business downturn now a days</a></h2>
+                        <div class="blog-post-meta mb-20">
+                            <ul class="list-wrap">
+                                <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
+                            </ul>
+                        </div>
+                        <a href="blog-details.html" class="btn">Continue Reading</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-10">
+                <div class="blog-post-item blog__post-three shine-animate-item">
+                    <div class="blog-post-thumb blog__post-thumb-three">
+                        <a href="blog-details.html" class="shine-animate"><img src="assets/img/blog/blog_post02.jpg" alt="Apexa" /></a>
+                    </div>
+                    <div class="blog-post-content blog__post-content-three">
+                        <a href="blog.html" class="post-tag">Audit</a>
+                        <h2 class="title"><a href="blog-details.html">Marketing your are business downturn now a days</a></h2>
+                        <div class="blog-post-meta mb-20">
+                            <ul class="list-wrap">
+                                <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
+                            </ul>
+                        </div>
+                        <a href="blog-details.html" class="btn">Continue Reading</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-10">
+                <div class="blog-post-item blog__post-three shine-animate-item">
+                    <div class="blog-post-thumb blog__post-thumb-three">
+                        <a href="blog-details.html" class="shine-animate"><img src="assets/img/blog/blog_post03.jpg" alt="Apexa" /></a>
+                    </div>
+                    <div class="blog-post-content blog__post-content-three">
+                        <a href="blog.html" class="post-tag">Investment</a>
+                        <h2 class="title"><a href="blog-details.html">Marketing your are business downturn now a days</a></h2>
+                        <div class="blog-post-meta mb-20">
+                            <ul class="list-wrap">
+                                <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
+                            </ul>
+                        </div>
+                        <a href="blog-details.html" class="btn">Continue Reading</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ *@

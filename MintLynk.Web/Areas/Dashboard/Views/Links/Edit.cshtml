@@ -1,0 +1,193 @@
+﻿@using MintLynk.Application.Dtos
+@model SmartLinkViewDto
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+    <div>
+        <div class="flex flex-col justify-between overflow-hidden mx-auto w-3/5" style="width:50%;">
+            <div class="flex flex-col w-full mb-3">
+                <h6 class="font-semibold mb-0 dark:text-white">Edit your link’s identity</h6>
+                <p class="text-gray-600 text-sm">
+                    The link is permanent, but you can still update its metadata —  the QR code doesn’t change.
+                </p>
+            </div>
+        </div>
+        <form id="frmLinkCreate" asp-action="Edit" asp-controller="Links" asp-area="Dashboard" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="EntityId" />
+            <input type="hidden" asp-for="Created" />
+            <div class="card border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 rounded-lg shadow p-6 flex flex-col justify-between overflow-hidden mx-auto w-3/5 mb-5" style="width:50%;">
+                <div class="flex w-full">
+                    <div class="w-full flex-none min-w-0 flex flex-col justify-start items-center">
+                        <div class="w-full grid grid-cols-1 sm:grid-cols-12 gap-4">
+                            <div class="col-span-12">
+                                <label class="w-full inline-block">Title</label>
+                                <div class="alert alert-success text-success-600 mb-3 font-semibold text-lg" role="alert">
+                                    <p class="font-medium text-success-600 text-xs mt-1">
+                                        No title? No problem — we’ll use the destination page’s title for you.
+                                    </p>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" asp-for="Title" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-span-12">
+                                <label class="inline-block mb-2">Destination<span class="text-danger ms-1">*</span></label>
+                                <div class="relative">
+                                    <input type="hidden" asp-for="DestinationUrl" />
+                                    <input type="text" value="@Model.DestinationUrl" class="form-control wizard-required" disabled>
+                                    <span asp-validation-for="DestinationUrl" class="wizard-form-error text-danger text-sm"></span>
+                                </div>
+                            </div>
+                            <div class="col-span-12">
+                                <label class="inline-block mt-6" style="font-weight:bold;font-size:18px;">
+                                    Custom Domain
+                                </label>
+                                <div class="alert alert-success text-success-600 mb-3 font-semibold text-lg" role="alert">
+                                    <p class="font-medium text-success-600 text-xs mt-1">
+                                        We’re working on it! Custom domain and back-half support will be <br />released in an upcoming version.
+                                    </p>
+                                </div>
+                                <div class="grid grid-cols-12 gap-4">
+                                    <div class="md:col-span-6 col-span-12">
+                                        <label class="inline-block mb-2">
+                                            Domain
+                                            <span class="icon">
+                                                <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
+                                            </span>
+                                        </label>
+                                        <div class="relative">
+                                            <select class="form-control" disabled>
+                                                <option value="mintlynk.com" selected>mintlynk.com</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-6 col-span-12">
+                                        <label class="inline-block mb-2">Back-half</label>
+                                        <div class="relative">
+                                            <input type="text" asp-for="ShortUrl" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-12">
+                                <img src="@Model.QrCode" alt="QR Code" style="width:200px;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 rounded-lg shadow p-6 flex flex-col justify-between overflow-hidden mx-auto w-3/5 mb-5" style="width:50%;">
+                <h6 class="mb-1.5 text-xl">Additional Settings</h6>
+                <div class="flex items-center justify-between mt-7 mb-7 w-full">
+                    <label class="font-medium cursor-pointer mb-0">
+                        UTM Parameters
+                        <span class="text-sm">
+                            Enable UTM tracking to measure traffic sources and campaign impact. <a href="https://support.google.com/analytics/answer/10917952#zippy=%2Cin-this-article">Learn more</a>.
+                        </span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer mb-0">
+                        @{
+                            bool utmChecked = Model.UtmParameters != null
+                            && !string.IsNullOrWhiteSpace(Model.UtmParameters.Source)
+                            && !string.IsNullOrWhiteSpace(Model.UtmParameters.Medium)
+                            && !string.IsNullOrWhiteSpace(Model.UtmParameters.Campaign)
+                            && !string.IsNullOrWhiteSpace(Model.UtmParameters.Term)
+                            && !string.IsNullOrWhiteSpace(Model.UtmParameters.Content);
+                        }
+                        @if (utmChecked)
+                        {
+                            <input id="chkAdditionalParameters" checked="" type="checkbox" class="sr-only peer">
+                        }
+                        else
+                        {
+                            <input id="chkAdditionalParameters" type="checkbox" class="sr-only peer">
+                        }
+                        
+                        <span id="spnAdditionalParameters" class="relative w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-warning-600"></span>
+                    </label>
+                </div>
+                <div id="additionalParameters" class="flex w-full" style="display:none;">
+                    <div class="w-full flex-none min-w-0 flex flex-col justify-start items-center">
+                        <div class="w-full grid grid-cols-1 sm:grid-cols-12 gap-4">
+                            <div class="col-span-12 sm:col-span-6">
+                                <label class="inline-block mb-2">Source</label>
+                                <div class="relative">
+                                    <input type="text" asp-for="UtmParameters.Source" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-span-12 sm:col-span-6">
+                                <label class="inline-block mb-2">Medium</label>
+                                <div class="relative">
+                                    <input type="text" asp-for="UtmParameters.Medium" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-span-12 sm:col-span-6">
+                                <label class="inline-block mb-2">Campaign</label>
+                                <div class="relative">
+                                    <input type="text" asp-for="UtmParameters.Campaign" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-span-12 sm:col-span-6">
+                                <label class="inline-block mb-2">Term</label>
+                                <div class="relative">
+                                    <input type="text" asp-for="UtmParameters.Term" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-span-12 sm:col-span-6">
+                                <label class="inline-block mb-2">Content</label>
+                                <div class="relative">
+                                    <input type="text" asp-for="UtmParameters.Content" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body flex justify-end items-center" style="width:50%;position:relative;margin-left: auto;margin-right: auto;padding-right:0 !important;">
+                <button type="submit" class="btn btn-primary-600">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chk = document.getElementById('chkAdditionalParameters');
+        const additional = document.getElementById('additionalParameters');
+
+        // Set initial state
+        additional.style.display = chk.checked ? 'flex' : 'none';
+
+        chk.addEventListener('change', function () {
+            additional.style.display = this.checked ? 'flex' : 'none';
+        });
+    });
+
+    document.getElementById('frmLinkCreate').addEventListener('submit', function (e) {
+        var urlInput = document.querySelector('input[name="DestinationUrl"]');
+        var url = urlInput.value.trim();
+        var errorSpan = urlInput.parentElement.querySelector('.wizard-form-error');
+
+        // Simple URL validation regex
+        var urlPattern = /^(https?:\/\/)[^\s$.?#].[^\s]*$/i;
+
+        if (!url) {
+            errorSpan.textContent = "Destination URL is required.";
+            errorSpan.style.display = "block";
+            e.preventDefault();
+            return false;
+        } else if (!urlPattern.test(url)) {
+            errorSpan.textContent = "Please enter a valid URL (must start with http:// or https://).";
+            errorSpan.style.display = "block";
+            e.preventDefault();
+            return false;
+        } else {
+            errorSpan.textContent = "";
+            errorSpan.style.display = "none";
+        }
+    });
+</script>
