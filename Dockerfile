@@ -6,18 +6,18 @@ WORKDIR /src
 
 # Copy solution and project files
 COPY *.sln .
-COPY Mintlynk.Web/*.csproj Mintlynk.Web/
-COPY Mintlynk.Domain/*.csproj Mintlynk.Domain/
-COPY Mintlynk.Application/*.csproj Mintlynk.Application/
-COPY Mintlynk.Infrastructure/*.csproj Mintlynk.Infrastructure/
-COPY Mintlynk.Persistence/*.csproj Mintlynk.Persistence/
+COPY MintLynk.Web/*.csproj MintLynk.Web/
+COPY MintLynk.Domain/*.csproj MintLynk.Domain/
+COPY MintLynk.Application/*.csproj MintLynk.Application/
+COPY MintLynk.Infrastructure/*.csproj MintLynk.Infrastructure/
+COPY MintLynk.Persistence/*.csproj MintLynk.Persistence/
 
 # Restore dependencies
 RUN dotnet restore
 
 # Copy everything else and build
 COPY . .
-WORKDIR /src/Mintlynk.Web
+WORKDIR /src/MintLynk.Web
 RUN dotnet publish -c Release -o /app/publish
 
 # ========================
@@ -31,4 +31,4 @@ COPY --from=build /app/publish .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 
-ENTRYPOINT ["dotnet", "Mintlynk.Web.dll"]
+ENTRYPOINT ["dotnet", "MintLynk.Web.dll"]
